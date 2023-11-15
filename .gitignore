@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# application.properties
+UTEJob/src/main/resources/application.properties
+
 # Log file
 *.log
 
