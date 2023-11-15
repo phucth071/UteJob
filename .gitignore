@@ -2,7 +2,7 @@
 *.class
 
 # application.properties
-UTEJob/src/main/resources/application.properties
+/UTEJob/src/main/resources/application.properties
 
 # Log file
 *.log
