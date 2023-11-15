@@ -18,4 +18,5 @@ public class users {
 	private String email;
 	@Column(columnDefinition = "varchar(255)")
 	private String password;
+	private int role;
 }
