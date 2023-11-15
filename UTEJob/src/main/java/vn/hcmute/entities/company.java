@@ -1,7 +1,5 @@
 package vn.hcmute.entities;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.*;
 

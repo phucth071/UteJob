@@ -20,11 +20,13 @@ public class users {
 	private String password;
 	private int role;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "student_id")
-	private student student;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "company_id")
-	private company company;
+	/*
+	 * @OneToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "student_id") private student student;
+	 * 
+	 * @OneToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "company_id") private company company;
+	 */
 }
