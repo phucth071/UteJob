@@ -1,6 +1,6 @@
 package vn.hcmute.entities;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,14 +9,13 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class locations {
+public class skill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int location_id;
-	
+	private int skill_id;
 	@Column(columnDefinition = "nvarchar(255)")
-	private String location_name;
+	private String skill_name;
 	
-	@OneToMany(targetEntity = jobs.class, mappedBy = "location", fetch = FetchType.EAGER)
-	private List<jobs> products;
+	@OneToMany(targetEntity = internshipskill.class, mappedBy = "skill", fetch = FetchType.EAGER)
+	private Set<internshipskill> internshipskills;
 }

@@ -1,5 +1,7 @@
 package vn.hcmute.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,32 +9,28 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class jobs {
+public class internship {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int job_id;
+	private int internship_id;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String title;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String full_description;
-	@Column(columnDefinition = "nvarchar(255)")
-	private String requirements;
 	@Column(columnDefinition = "varchar(255)")
 	private String job_nature;
 	@Column(columnDefinition = "varchar(255)")
 	private String salary;
 	@Column(columnDefinition = "bit")
-	private boolean top_rated;
+	private boolean status;
 	
-	@ManyToOne(targetEntity = categories.class)
-	@JoinColumn(name = "category_id")
-	private categories category;
-	
-	@ManyToOne(targetEntity = companies.class)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
-	private categories company;
+	private company company;
 	
-	@ManyToOne(targetEntity = locations.class)
-	@JoinColumn(name = "location_id")
-	private categories location;
+	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)
+	private Set<application> applications;
+	
+	@OneToMany(targetEntity = internshipskill.class, mappedBy = "internship", fetch = FetchType.EAGER)
+	private Set<internshipskill> internshipskills;
 }
