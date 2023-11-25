@@ -1,6 +1,5 @@
 package vn.hcmute.models;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -12,4 +11,8 @@ public class companyModel {
 	private String industry;
 	private int user_id;
 	private int internship_id;
+	private boolean isEdit;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }

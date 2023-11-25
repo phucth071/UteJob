@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<form th:action="@{/admin/company/saveOrUpdate}" method="post" >
+						<div class="form-group d-none">
+							<label for="company_id">id :</label> <input readonly type="text" class="form-control"
+								id="company_id" name="company_id"  th:value="${company.company_id}">
+						</div>
+						<div class="form-group">
+							<label for="company_name">Tên công ty :</label> <input type="text" class="form-control"
+								id="company_name" name="company_name"  th:value="${company.company_name}">
+						</div>
+						<div class="form-group">
+							<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
+								name="industry"  th:value="${company.industry}">
+						</div>
+						<div class="form-group">
+							<label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
+								name="user_id"  th:value="${company.user_id}">
+						</div>
+						    <button type="submit" class="btn btn-primary" th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

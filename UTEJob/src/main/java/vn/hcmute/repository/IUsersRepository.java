@@ -7,5 +7,5 @@ import vn.hcmute.entities.users;
 
 @Repository
 public interface IUsersRepository extends JpaRepository<users, Integer>{
-
+	
 }

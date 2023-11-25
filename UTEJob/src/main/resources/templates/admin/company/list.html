@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<body>
+	<section layout:fragment="content" >
+		<div class="col mt-4">
+			<div class="card-header">Danh sách các công ty</div>
+			<div class="card-header">
+				<div th:if="${message != null}" class="alert alert-primary" role="alert">
+					<i th:text="${message}"></i>
+				</div>
+			</div>
+			
+			<table class=" table table-striped " id="form-company">
+				<thead class="thead-inverse">
+					<tr>
+						<th>CompanyID</th>
+						<th>Tên công ty</th>
+						<th>Ngành</th>
+						<th>UserID</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="company : ${company}">
+						<td th:text="${company.company_id}"></td>
+						<td th:text="${company.company_name}"></td>
+						<td th:text="${company.industry}"></td>
+						<td th:text="${company.user_id}"></td>
+						<td>
+							<a th:href="@{'/admin/company/edit/' + ${company.company_id}}">
+								<i class='fas fa-pencil-alt' style='font-size:24px'></i>
+							</a>
+							<a th:href="@{'/admin/company/delete/' + ${company.company_id}}">
+								<i class="fa-regular fa-trash-can "style='font-size:24px; margin-left:12px'></i>
+							</a>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</body>
+
+</html>
