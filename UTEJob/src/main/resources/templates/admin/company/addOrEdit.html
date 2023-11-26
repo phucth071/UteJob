@@ -9,6 +9,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<form th:action="@{/admin/company/saveOrUpdate}" method="post" >
+						<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
 						<div class="form-group d-none">
 							<label for="company_id">id :</label> <input readonly type="text" class="form-control"
 								id="company_id" name="company_id"  th:value="${company.company_id}">

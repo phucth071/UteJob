@@ -19,9 +19,9 @@ public class student {
 	private String last_name;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String major;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
+	private int user_id;
+	@OneToOne
+	@JoinColumn(name = "user_id",insertable=false, updatable=false)
 	private users user;
 	
 	@OneToMany(targetEntity = application.class, mappedBy = "student", fetch = FetchType.EAGER)

@@ -5,8 +5,13 @@
 <body>
 	<section layout:fragment="content" >
 		<div class="col mt-4">
-			<div class="card-header">Danh sách các công ty</div>
-			<div class="card-header">
+			<div class="card-header" style="font-size: 25px; font-weight: bold;">Danh sách các công ty
+				<a href="/admin/company/add"><i class="fa fa-plus" style="font-size: 35px;float: right;"></i></a>
+				
+			</div>
+
+			
+			<div>
 				<div th:if="${message != null}" class="alert alert-primary" role="alert">
 					<i th:text="${message}"></i>
 				</div>
@@ -30,7 +35,7 @@
 						<td th:text="${company.user_id}"></td>
 						<td>
 							<a th:href="@{'/admin/company/edit/' + ${company.company_id}}">
-								<i class='fas fa-pencil-alt' style='font-size:24px'></i>
+								<i class='fas fa-edit' style='font-size:24px'></i>
 							</a>
 							<a th:href="@{'/admin/company/delete/' + ${company.company_id}}">
 								<i class="fa-regular fa-trash-can "style='font-size:24px; margin-left:12px'></i>
