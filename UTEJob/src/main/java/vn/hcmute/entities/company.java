@@ -1,10 +1,6 @@
 package vn.hcmute.entities;
 
-import java.util.Optional;
 import java.util.Set;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,8 +22,6 @@ public class company {
 	@OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private users user;
-	
-	
 	@OneToMany(targetEntity = internship.class, mappedBy = "company", fetch = FetchType.EAGER)
 	private Set<internship> interships;
 	// @OneToMany(targetEntity = jobs.class, mappedBy = "company", fetch = FetchType.EAGER)

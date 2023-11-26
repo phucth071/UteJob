@@ -11,4 +11,5 @@ public class usersModel {
 	private String email;
 	private String password;
 	private int role;
+	private boolean isEnabled = false;
 }
