@@ -1,8 +1,4 @@
 package vn.hcmute.models;
-
-import java.util.List;
-
-import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -14,5 +10,8 @@ public class studentModel {
 	private String last_name;
 	private String major;
 	private int user_id;
-	
+	private boolean isEdit;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }

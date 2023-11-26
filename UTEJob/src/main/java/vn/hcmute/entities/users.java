@@ -20,6 +20,7 @@ public class users {
 	private String password;
 	private int role;
 	
+	
 	/*
 	 * @OneToOne(cascade = CascadeType.ALL)
 	 * 
@@ -29,4 +30,6 @@ public class users {
 	 * 
 	 * @JoinColumn(name = "company_id") private company company;
 	 */
+
+	
 }
