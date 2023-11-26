@@ -1,5 +1,7 @@
 package vn.hcmute.entities;
 
+import org.hibernate.annotations.NaturalId;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,10 +17,12 @@ public class users {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String user_name;
 	@Column(columnDefinition = "varchar(255)")
+	@NaturalId
 	private String email;
 	@Column(columnDefinition = "varchar(255)")
 	private String password;
 	private int role;
+	private boolean isEnabled = false;
 	
 	/*
 	 * @OneToOne(cascade = CascadeType.ALL)

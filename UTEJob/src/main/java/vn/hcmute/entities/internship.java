@@ -24,8 +24,8 @@ public class internship {
 	@Column(columnDefinition = "bit")
 	private boolean status;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "company_id")
+	@ManyToOne(targetEntity = company.class)
+	@JoinColumn(name = "company_id", insertable=false, updatable=false)
 	private company company;
 	
 	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)

@@ -1,5 +1,7 @@
 package vn.hcmute.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,9 +21,8 @@ public class company {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private users user;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "internship_id")
-	private internship internship;
+	@OneToMany(targetEntity = internship.class, mappedBy = "company", fetch = FetchType.EAGER)
+	private Set<internship> interships;
 	// @OneToMany(targetEntity = jobs.class, mappedBy = "company", fetch = FetchType.EAGER)
 	// private List<jobs> products;
 }
