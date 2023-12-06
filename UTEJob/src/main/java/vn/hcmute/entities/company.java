@@ -1,5 +1,6 @@
 package vn.hcmute.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -22,8 +23,13 @@ public class company {
 	@OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private users user;
-	@OneToMany(targetEntity = internship.class, mappedBy = "company", fetch = FetchType.EAGER)
-	private Set<internship> interships;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "company_internship",
+			joinColumns = @JoinColumn(name = "company_id"),
+			inverseJoinColumns = @JoinColumn(name = "internship_id")
+	)
+	private Set<internship> internships = new HashSet<>();
 	// @OneToMany(targetEntity = jobs.class, mappedBy = "company", fetch = FetchType.EAGER)
 	// private List<jobs> products;
 
