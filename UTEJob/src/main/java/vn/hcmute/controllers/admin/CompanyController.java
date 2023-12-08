@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.persistence.Entity;
 
 import jakarta.validation.Valid;
 import vn.hcmute.entities.company;
@@ -74,8 +75,17 @@ public class CompanyController {
 		if (result.hasErrors()) {
 			return new ModelAndView("admin/company/addOrEdit", model);
 		}
+		//Random random = new Random();
+		//int randomNumber = random.nextInt(101);
 		company enity = new company();
 		BeanUtils.copyProperties(company, enity);
+		
+//		//xu li user
+//		users userEnity =new users();
+//		userEnity.setUser_id(company.getUser_id());
+//		enity.setUsers(userEnity);
+		
+		//enity.setCompany_id(randomNumber);
 		if (!company.getImageFile().isEmpty()) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
@@ -123,21 +133,19 @@ public class CompanyController {
 		}
 		return new ModelAndView("forward:/admin/company", model);
 	}
-	
 	@GetMapping("search")
 	public String search(ModelMap model, @RequestParam(name="name",required = false) String name) {
 		List<company> list =null;
 		if (StringUtils.hasText(name)) {
 			list =companyService.findByCompanyNameContaining(name);
 			
-		}else {
+		} else {
 			list = companyService.findAll();
 			
 		}
 		model.addAttribute("company",list);
 		return "admin/company/search";
 	}
-	
 	@GetMapping("/images/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serverFile(@PathVariable String filename) {
