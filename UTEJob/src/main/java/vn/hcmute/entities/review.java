@@ -15,8 +15,11 @@ public class review {
 	private String comment;
 	@Column(columnDefinition = "decimal(3, 1)")
 	private double rating;
+	@Column
+	private Integer application_id;
+//	@ManyToOne(targetEntity = application.class)
+//	@JoinColumn(name = "application_id")
+//	private application application;
 	
-	@ManyToOne(targetEntity = application.class)
-	@JoinColumn(name = "application_id", insertable=false, updatable=false)
-	private student application;
+	
 }

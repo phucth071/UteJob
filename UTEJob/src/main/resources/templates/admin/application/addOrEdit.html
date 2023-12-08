@@ -3,7 +3,7 @@
 	layout:decorate="~{admin/layout-admin.html}">
 
 <head>
-	<title>Thêm công ty</title>
+	<title>Application</title>
 	<script th:inline="javascript">
 		function showConfirm() {
 			var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
@@ -37,39 +37,40 @@
 
 			<div class="row">
 				<div class="col-sm-12">
-					<form th:action="@{/admin/company/saveOrUpdate}" method="post" onsubmit="return validateForm()">
-						<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
-						
+					<form th:action="@{/admin/application/saveOrUpdate}" method="post">
+						<h1 th:text="${app.isEdit ? 'Chỉnh sửa thông tin ' : 'Thêm mới thông tin'}">
+						</h1>
 						<div class="form-group d-none">
-							<label for="company_id">id :</label> <input readonly type="text" class="form-control"
-								id="company_id" name="company_id" th:value="${company.company_id}">
+							<label for="application_id">id :</label> <input readonly type="text" class="form-control"
+								id="application_id" name="application_id" th:value="${app.application_id}">
 						</div>
-						
+
+
 						<div class="form-group">
-							<label for="company_name">Tên công ty:</label>
-							<input type="text" class="form-control" id="company_name" name="company_name"
-								th:value="${company.company_name}" required>
-							
+							<label for="status">Trạng thái:</label>
+							<select class="form-control" id="status" name="status">																				
+								<option value="true" th:selected="${app.status == true}">Đã duyệt</option>
+								<option value="false" th:selected="${app.status == false}">Chưa duyệt
+								</option>
+							</select>
 						</div>
-						
+
 						<div class="form-group">
-							<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
-								name="industry" th:value="${company.industry}"required>
+							<label for="internship_id">Internship ID:</label> <input type="text" class="form-control"
+								id="internship_id" name="internship_id" th:value="${app.internship_id}" required>
 						</div>
-						
 						<div class="form-group">
-							<label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
-								name="user_id" th:value="${company.user_id}"required>
+							<label for="student_id">Student ID:</label> <input type="text" class="form-control"
+								id="student_id" name="student_id" th:value="${app.student_id}" required>
 						</div>
-						
-						<a th:href="${company.isEdit} ? @{/admin/company/add} : @{/admin/company/add}">
+
+						<a th:href="${app.isEdit} ? @{/admin/application/add} : @{/admin/application/add}">
 							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
-								<span th:text="${company.isEdit} ? 'Thêm mới' : 'Reset'"></span>
+								<span th:text="${app.isEdit} ? 'Thêm mới' : 'Reset'"></span>
 							</button>
 						</a>
-
-						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
-							th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+						<button type="submit" class="btn btn-primary" onclick="return showConfirm()"
+							th:text="${app.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
 					</form>
 				</div>
 			</div>

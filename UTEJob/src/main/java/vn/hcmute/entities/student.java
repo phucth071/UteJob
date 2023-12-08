@@ -20,10 +20,10 @@ public class student {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String major;
 	private int user_id;
-	@OneToOne
-	@JoinColumn(name = "user_id",insertable=false, updatable=false)
-	private users user;
-	
-	@OneToMany(targetEntity = application.class, mappedBy = "student", fetch = FetchType.EAGER)
-	private List<application> applications;
+//	@OneToOne
+//	@JoinColumn(name = "user_id",insertable=false, updatable=false)
+//	private users user;
+//	
+//	@OneToMany(targetEntity = application.class, mappedBy = "student", fetch = FetchType.EAGER)
+//	private List<application> applications;
 }

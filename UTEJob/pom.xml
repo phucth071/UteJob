@@ -34,7 +34,7 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 			<version>3.1.2.RELEASE</version>
 		</dependency>
-
+		
 		<!--
 		https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
 		<dependency>

@@ -1,5 +1,7 @@
 package vn.hcmute.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +13,7 @@ public class users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
-	
+
 	@Column(columnDefinition = "nvarchar(255)")
 	private String user_name;
 	@Column(columnDefinition = "varchar(255)")
@@ -19,17 +21,13 @@ public class users {
 	@Column(columnDefinition = "varchar(255)")
 	private String password;
 	private int role;
-	
-	
-	/*
-	 * @OneToOne(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "student_id") private student student;
-	 * 
-	 * @OneToOne(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "company_id") private company company;
-	 */
 
-	
+//	@OneToOne(cascade = CascadeType.ALL)
+//
+//	@JoinColumn(name = "student_id")
+//	private student student;
+
+//	@OneToOne(mappedBy = "users",cascade = CascadeType.ALL)
+//	private company company;
+
 }

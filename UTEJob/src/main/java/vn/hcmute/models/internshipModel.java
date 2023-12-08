@@ -13,4 +13,8 @@ public class internshipModel {
 	private String salary;
 	private boolean status;
 	private int company_id;
+	private boolean isEdit;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/layout-admin.html}">
-
 <head>
-	<title>Thêm công ty</title>
+	<title>Review</title>
 	<script th:inline="javascript">
 		function showConfirm() {
 			var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
@@ -30,46 +29,41 @@
 		}
 	</script>
 </head>
-
 <body>
 	<section layout:fragment="content">
 		<div class="container">
 
 			<div class="row">
 				<div class="col-sm-12">
-					<form th:action="@{/admin/company/saveOrUpdate}" method="post" onsubmit="return validateForm()">
-						<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
-						
+					<form th:action="@{/admin/review/saveOrUpdate}" method="post">
+						<h1 th:text="${review.isEdit ? 'Chỉnh sửa thông tin ' : 'Thêm mới thông tin'}">
+						</h1>
 						<div class="form-group d-none">
-							<label for="company_id">id :</label> <input readonly type="text" class="form-control"
-								id="company_id" name="company_id" th:value="${company.company_id}">
+							<label for="application_id">id :</label> <input readonly type="text" class="form-control"
+								id="review_id" name="review_id" th:value="${review.review_id}" >
 						</div>
-						
-						<div class="form-group">
-							<label for="company_name">Tên công ty:</label>
-							<input type="text" class="form-control" id="company_name" name="company_name"
-								th:value="${company.company_name}" required>
-							
-						</div>
-						
-						<div class="form-group">
-							<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
-								name="industry" th:value="${company.industry}"required>
-						</div>
-						
-						<div class="form-group">
-							<label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
-								name="user_id" th:value="${company.user_id}"required>
-						</div>
-						
-						<a th:href="${company.isEdit} ? @{/admin/company/add} : @{/admin/company/add}">
-							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
-								<span th:text="${company.isEdit} ? 'Thêm mới' : 'Reset'"></span>
-							</button>
-						</a>
 
-						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
-							th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+						<div class="form-group">
+							<label for="comment">Bình luận :</label> <input type="text" class="form-control" id="comment"
+								name="comment" th:value="${review.comment}" required>
+						</div>
+
+						<div class="form-group">
+							<label for="rating">Đánh giá :</label> <input type="text" class="form-control" id="rating"
+								name="rating" th:value="${review.rating}" required>
+						</div>
+						<div class="form-group">
+							<label for="application_id">Application ID:</label> <input type="text" class="form-control"
+								id="application_id" name="application_id" th:value="${review.application_id}" required>
+						</div>
+							<a th:href="${review.isEdit} ? @{/admin/review/add} : @{/admin/review/add}">
+							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
+								<span th:text="${review.isEdit} ? 'Thêm mới' : 'Reset'"></span>
+							</button>
+						</a>	
+
+						<button type="submit" class="btn btn-primary" onclick="return showConfirm()"
+							th:text="${review.isEdit ? 'Chỉnh sửa' : 'Thêm'}" ></button>
 					</form>
 				</div>
 			</div>

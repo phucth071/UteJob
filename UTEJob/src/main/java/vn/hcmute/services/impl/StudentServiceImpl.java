@@ -33,5 +33,11 @@ public class StudentServiceImpl implements IStudentService{
 	public void deleteById(Integer id) {
 		studentRepo.deleteById(id);
 	}
+
+	@Override
+	public List<student> findByFirstnameContaining(String name) {
+		// TODO Auto-generated method stub
+		return studentRepo.findByFirstnameContaining(name);
+	}
 	
 }

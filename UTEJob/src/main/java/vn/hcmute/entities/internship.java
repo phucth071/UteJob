@@ -23,14 +23,14 @@ public class internship {
 	private String salary;
 	@Column(columnDefinition = "bit")
 	private boolean status;
-	
-	@ManyToOne(targetEntity = company.class)
-	@JoinColumn(name = "company_id", insertable=false, updatable=false)
-	private company company;
-	
-	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)
-	private Set<application> applications;
-	
-	@OneToMany(targetEntity = internshipskill.class, mappedBy = "internship", fetch = FetchType.EAGER)
-	private Set<internshipskill> internshipskills;
+	private int company_id;
+//	@ManyToOne(targetEntity = company.class)
+//	@JoinColumn(name = "company_id", insertable=false, updatable=false)
+//	private company company;
+//	
+//	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)
+//	private Set<application> applications;
+////	
+//	@OneToMany(targetEntity = internshipskill.class, mappedBy = "internship", fetch = FetchType.EAGER)
+//	private Set<internshipskill> internshipskills;
 }
