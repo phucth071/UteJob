@@ -18,7 +18,7 @@ public class users {
 	private int user_id;
 	
 	@Column(columnDefinition = "nvarchar(255)")
-	private String user_name;
+	private String username;
 	@Column(columnDefinition = "varchar(255)")
 	@NaturalId
 	private String email;

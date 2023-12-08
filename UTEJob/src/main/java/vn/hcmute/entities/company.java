@@ -18,7 +18,8 @@ public class company {
 	private String company_name;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String industry;
-	@Column(name = "user_id") // Đặt tên cột tương ứng trong bảng company
+	@Column(length = 200)
+	private String avatar;
     private Integer user_id; // Trường user_id để tham chiếu đến bảng users
 	@OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
