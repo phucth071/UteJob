@@ -1,14 +1,15 @@
 package vn.hcmute.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class usersModel {
-	private int user_id;
+public class signUpDto {
 	private String username;
 	private String email;
 	private String password;
-	private boolean isEnabled = false;
+	private boolean enabled;
 }

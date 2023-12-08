@@ -36,11 +36,17 @@ public interface IUsersService {
 	void deleteAll();
 
 	void delete(users entity);
-
-	users login(String email, String password);
 	
 	Optional<users> findByEmail(String email);
 
 	Optional<users> findById(Integer id);
+
+	Optional<users> findByUsernameOrEmail(String username, String email);
+
+	Optional<users> findByUsername(String username);
+
+	boolean existsByUsername(String username);
+
+	boolean existsByEmail(String email);
 
 }

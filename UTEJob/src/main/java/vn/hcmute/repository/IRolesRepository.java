@@ -10,6 +10,6 @@ import vn.hcmute.entities.roles;
 
 public interface IRolesRepository extends JpaRepository<roles, Long>{
 	@Query("Select u from roles u where u.name = :name")
-	public roles getUserByRoleName(@Param("name") String name);
+	public roles getUserByName(@Param("name") String name);
 	Optional<roles> findByName(String name);
 }

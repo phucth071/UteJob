@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UTEJOB Login</title>
+    <title>UTEJOB Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="/assets-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,7 +41,7 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="p-5">
-									<form class="user" th:action="@{/login}" method="post">
+									<form class="user" th:action="@{/signup}" method="post">
 										<th:block th:if="${session.msg}">
 											<div class="alert alert-primary" role="alert">[[${session.msg}]]</div>
 											<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
@@ -52,18 +52,16 @@
 												placeholder="Enter Username...">
 										</div>
 										<div class="form-group">
+											<input type="email" class="form-control form-control-user" id="email" name="email"
+												aria-describedby="emailid"
+												placeholder="Enter Email...">
+										</div>
+										<div class="form-group">
 											<input type="password" class="form-control form-control-user" id="password" name="password" aria-describedby="passwordid"
 											placeholder="Password">
 										</div>
-										<div class="form-group">
-											<div class="custom-control custom-checkbox small">
-												<input type="checkbox" class="custom-control-input" id="customCheck">
-												<label class="custom-control-label" for="customCheck">Remember
-													Me</label>
-											</div>
-										</div>
 										<button type="submit"class="btn btn-primary btn-user btn-block">
-											Đăng nhập
+											Đăng ký
 										</button>
 										<!--<a href="index.html" class="btn btn-google btn-user btn-block">
 											<i class="fab fa-google fa-fw"></i> Login with Google
@@ -75,9 +73,6 @@
 									<hr>
 									<div class="text-center">
 										<a class="small" href="forgot-password.html">Quên mật khẩu?</a>
-									</div>
-									<div class="text-center">
-										<a class="small" href="/signup">Tạo tài khoản mới!</a>
 									</div>
 								</div>
 							</div>

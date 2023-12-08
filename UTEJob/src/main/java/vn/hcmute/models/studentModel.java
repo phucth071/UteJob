@@ -1,4 +1,6 @@
 package vn.hcmute.models;
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.*;
 
 @Data
@@ -10,6 +12,8 @@ public class studentModel {
 	private String last_name;
 	private String major;
 	private int user_id;
+	private String avatar;
+	private MultipartFile imageFile;
 	private boolean isEdit;
 	public boolean getIsEdit() {
 		return isEdit;
