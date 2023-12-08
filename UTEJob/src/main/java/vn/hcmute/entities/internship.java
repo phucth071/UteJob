@@ -24,10 +24,10 @@ public class internship {
 	@Column(columnDefinition = "bit")
 	private boolean status;
 
-	
-	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)
-	private Set<application> applications;
-	
-	@OneToMany(targetEntity = internshipskill.class, mappedBy = "internship", fetch = FetchType.EAGER)
-	private Set<internshipskill> internshipskills;
+	private int company_id;
+//	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)
+//	private Set<application> applications;
+////	
+//	@OneToMany(targetEntity = internshipskill.class, mappedBy = "internship", fetch = FetchType.EAGER)
+//	private Set<internshipskill> internshipskills;
 }

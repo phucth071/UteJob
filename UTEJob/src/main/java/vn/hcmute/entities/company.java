@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -21,7 +22,8 @@ public class company {
 	@Column(length = 200)
 	private String avatar;
     private Integer user_id; // Trường user_id để tham chiếu đến bảng users
-	@OneToOne
+
+    @OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private users user;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -34,11 +36,4 @@ public class company {
 	// @OneToMany(targetEntity = jobs.class, mappedBy = "company", fetch = FetchType.EAGER)
 	// private List<jobs> products;
 
-
-
-
-	
-
-
-	
 }

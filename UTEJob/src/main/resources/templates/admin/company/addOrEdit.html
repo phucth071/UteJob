@@ -2,11 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/layout-admin.html}">
 
+<head>
+	<title>Thêm công ty</title>
+	<script th:inline="javascript">
+		function showConfirm() {
+			var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
+			return confirmation;
+		}
+		function validateForm() {
+			var formInputs = document.querySelectorAll('input, select, textarea');
+			var isValid = true;
+
+			formInputs.forEach(function (input) {
+				if (input.required && !input.value.trim()) {
+					input.classList.add('is-invalid'); // Thêm class để hiển thị border đỏ hoặc thông báo lỗi
+					isValid = false;
+				} else {
+					input.classList.remove('is-invalid');
+				}
+			});
+
+			if (!isValid) {
+				alert('Vui lòng điền đầy đủ thông tin');
+			}
+
+			return isValid; // Ngăn form submit nếu có lỗi
+		}
+	</script>
+</head>
+
 <body>
 	<section layout:fragment="content">
 		<div class="container">
 
 			<div class="row">
+<<<<<<< HEAD
+				<div class="col-sm-12">
+					<form th:action="@{/admin/company/saveOrUpdate}" method="post" onsubmit="return validateForm()">
+						<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
+						
+						<div class="form-group d-none">
+							<label for="company_id">id :</label> <input readonly type="text" class="form-control"
+								id="company_id" name="company_id" th:value="${company.company_id}">
+=======
 				<div class="col mt-4">
 					<form th:action="@{/admin/company/saveOrUpdate}" method="post" enctype="multipart/form-data" th:object="${company}">
 						<div class="col-12">
@@ -50,9 +88,38 @@
 									<span>Field errors</span>
 								</div>
 							</div>
+>>>>>>> refs/remotes/origin/main
 						</div>
 						
+<<<<<<< HEAD
+						<div class="form-group">
+							<label for="company_name">Tên công ty:</label>
+							<input type="text" class="form-control" id="company_name" name="company_name"
+								th:value="${company.company_name}" required>
+							
+						</div>
+						
+						<div class="form-group">
+							<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
+								name="industry" th:value="${company.industry}"required>
+						</div>
+						
+						<div class="form-group">
+							<label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
+								name="user_id" th:value="${company.user_id}"required>
+						</div>
+						
+						<a th:href="${company.isEdit} ? @{/admin/company/add} : @{/admin/company/add}">
+							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
+								<span th:text="${company.isEdit} ? 'Thêm mới' : 'Reset'"></span>
+							</button>
+						</a>
+
+						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
+							th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+=======
 						<button type="submit" class="btn btn-primary" th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+>>>>>>> refs/remotes/origin/main
 					</form>
 				</div>
 			</div>

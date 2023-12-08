@@ -16,6 +16,6 @@ public class skill {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String skill_name;
 	
-	@OneToMany(targetEntity = internshipskill.class, mappedBy = "skill", fetch = FetchType.EAGER)
-	private Set<internshipskill> internshipskills;
+//	@OneToMany(targetEntity = internshipskill.class, mappedBy = "skill", fetch = FetchType.EAGER)
+//	private Set<internshipskill> internshipskills;
 }
