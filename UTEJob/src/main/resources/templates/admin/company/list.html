@@ -45,6 +45,7 @@
 			<table class=" table table-striped " id="form-company">
 				<thead class="thead-inverse">
 					<tr>
+						<th>Avatar</th>
 						<th>CompanyID</th>
 						<th>Tên công ty</th>
 						<th>Ngành</th>
@@ -54,6 +55,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="company : ${company}">
+						<td><img th:src="${company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}" width="50" class="img-fluid" alt=""></td>
 						<td th:text="${company.company_id}"></td>
 						<td th:text="${company.company_name}"></td>
 						<td th:text="${company.industry}"></td>

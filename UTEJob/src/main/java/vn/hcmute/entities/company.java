@@ -1,10 +1,7 @@
 package vn.hcmute.entities;
 
-import java.util.Optional;
+import java.util.HashSet;
 import java.util.Set;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -22,15 +19,21 @@ public class company {
 	private String company_name;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String industry;
-	@Column(name = "user_id") // Đặt tên cột tương ứng trong bảng company
+	@Column(length = 200)
+	private String avatar;
     private Integer user_id; // Trường user_id để tham chiếu đến bảng users
 
-//	@OneToOne
-//	@JoinColumn(name = "user_id")
-//	private users users;
-//	@OneToMany(targetEntity = internship.class, mappedBy = "company", fetch = FetchType.EAGER)
-//	private Set<internship> interships;
-//	// @OneToMany(targetEntity = jobs.class, mappedBy = "company", fetch = FetchType.EAGER)
-//	// private List<jobs> products;
+    @OneToOne
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	private users user;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "company_internship",
+			joinColumns = @JoinColumn(name = "company_id"),
+			inverseJoinColumns = @JoinColumn(name = "internship_id")
+	)
+	private Set<internship> internships = new HashSet<>();
+	// @OneToMany(targetEntity = jobs.class, mappedBy = "company", fetch = FetchType.EAGER)
+	// private List<jobs> products;
 
 }

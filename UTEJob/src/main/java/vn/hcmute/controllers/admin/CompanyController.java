@@ -1,5 +1,7 @@
 package vn.hcmute.controllers.admin;
 
+import java.io.IOException;
+import java.net.http.HttpHeaders;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -8,6 +10,8 @@ import java.util.UUID;
 import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -28,6 +33,7 @@ import vn.hcmute.entities.users;
 import vn.hcmute.models.companyModel;
 import vn.hcmute.models.usersModel;
 import vn.hcmute.services.ICompanyService;
+import vn.hcmute.services.IStorageService;
 import vn.hcmute.services.IUsersService;
 
 @Controller
@@ -37,6 +43,8 @@ public class CompanyController {
 	ICompanyService companyService;
 	@Autowired
 	IUsersService userService;
+	@Autowired
+	private IStorageService storageService;
 //	@ModelAttribute("users")
 //	public List<usersModel> getUsers(){
 //		return userService.findAll().stream().map(item->{
@@ -66,17 +74,14 @@ public class CompanyController {
 		if (result.hasErrors()) {
 			return new ModelAndView("admin/company/addOrEdit", model);
 		}
-		//Random random = new Random();
-		//int randomNumber = random.nextInt(101);
 		company enity = new company();
 		BeanUtils.copyProperties(company, enity);
-		
-//		//xu li user
-//		users userEnity =new users();
-//		userEnity.setUser_id(company.getUser_id());
-//		enity.setUsers(userEnity);
-		
-		//enity.setCompany_id(randomNumber);
+		if (!company.getImageFile().isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+			enity.setAvatar(storageService.getStorageFileName(company.getImageFile(), uuString));
+			storageService.store(company.getImageFile(), enity.getAvatar());
+		}
 		companyService.save(enity);
 		String message = "";
 		if (company.getIsEdit() == true) {
@@ -103,11 +108,19 @@ public class CompanyController {
 		model.addAttribute("message", "Công ty không tồn tại");
 		return new ModelAndView("forward:/admin/company", model);
 	}
-
+	
 	@GetMapping("delete/{company_id}")
-	public ModelAndView delete(ModelMap model, @PathVariable("company_id") int company_id) {
-		companyService.deleteById(company_id);
-		model.addAttribute("message", "Xóa thành công");
+	public ModelAndView delete(ModelMap model, @PathVariable("company_id") int company_id) throws IOException {
+		Optional<company> opt = companyService.findById(company_id);
+		if (opt.isPresent()) {
+			if(!org.springframework.util.StringUtils.hasText(opt.get().getAvatar())) {
+				storageService.delete(opt.get().getAvatar());
+			}
+			companyService.deleteById(company_id);
+			model.addAttribute("message", "Xóa thành công");
+		} else {
+			model.addAttribute("message", "Xóa thất bại");
+		}
 		return new ModelAndView("forward:/admin/company", model);
 	}
 	
@@ -123,5 +136,13 @@ public class CompanyController {
 		}
 		model.addAttribute("company",list);
 		return "admin/company/search";
+	}
+	
+	@GetMapping("/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile(@PathVariable String filename) {
+		Resource file = storageService.loadAsResource(filename);
+		return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION,
+				"attachment;filename=\""+ file.getFilename() + "\"").body(file);
 	}
 }

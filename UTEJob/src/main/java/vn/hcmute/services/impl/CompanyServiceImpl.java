@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import vn.hcmute.entities.company;
 import vn.hcmute.repository.ICompanyRepository;
@@ -21,6 +22,16 @@ public class CompanyServiceImpl implements ICompanyService{
 
 	@Override
 	public <S extends company> S save(S entity) {
+		Optional<company> opt = findById(entity.getCompany_id());
+		if (!opt.isPresent()) {
+			return companyRepo.save(entity);
+		} else {
+			if (StringUtils.isEmpty(entity.getAvatar())) {
+				entity.setAvatar(opt.get().getAvatar());
+			} else {
+				entity.setAvatar(entity.getAvatar());
+			}
+		}
 		return companyRepo.save(entity);
 	}
 

@@ -19,6 +19,8 @@ public class student {
 	private String last_name;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String major;
+	@Column(length = 200)
+	private String avatar;
 	private int user_id;
 //	@OneToOne
 //	@JoinColumn(name = "user_id",insertable=false, updatable=false)

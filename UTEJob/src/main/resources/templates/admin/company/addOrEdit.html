@@ -36,6 +36,7 @@
 		<div class="container">
 
 			<div class="row">
+<<<<<<< HEAD
 				<div class="col-sm-12">
 					<form th:action="@{/admin/company/saveOrUpdate}" method="post" onsubmit="return validateForm()">
 						<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
@@ -43,8 +44,54 @@
 						<div class="form-group d-none">
 							<label for="company_id">id :</label> <input readonly type="text" class="form-control"
 								id="company_id" name="company_id" th:value="${company.company_id}">
+=======
+				<div class="col mt-4">
+					<form th:action="@{/admin/company/saveOrUpdate}" method="post" enctype="multipart/form-data" th:object="${company}">
+						<div class="col-12">
+							<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
+							<input type="hidden" th:field="*{isEdit}">
+							<div class="form-group d-none">
+								<label for="company_id">Id :</label> <input readonly type="text" class="form-control"
+									id="company_id" name="company_id" th:field="*{company_id}">
+							</div>
+							<div class="form-group">
+								<label for="company_name">Tên công ty :</label> <input type="text" class="form-control"
+									id="company_name" name="company_name" th:field="*{company_name}">
+							</div>
+							<div class="form-group">
+								<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
+									name="industry"  th:field="*{industry}">
+							</div>
+							<div class="form-group">
+								<label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
+									name="user_id"  th:field="*{user_id}">
+							</div>
+			
+							<script type="text/javascript">
+								function chooseFile(fileInput) {
+									if (fileInput.files && fileInput.files[0]) {
+										var reader = new FileReader();
+										reader.onload = function (e) {
+											$('#avatar').attr('src', e.target.result);
+										}
+										reader.readAsDataURL(fileInput.fiels[0]);
+									}
+								}
+							</script>
+							
+							<img id="avatar" th:src="${company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}" width="50" class="img-fluid" alt="">
+							<div class="mb-3">
+								<label for="imageFile" class="form-label">Avatar:</label>
+								<input type="file" class="form-control-file" id="imageFile" name="imageFile"
+									aria-describedby="imageFile" placeholder="Avatar" onchange="chooseFile(this)">
+								<div th:if="${#fields.hasErrors('avatar')}" id="imageFileid" class="form-text text-muted">
+									<span>Field errors</span>
+								</div>
+							</div>
+>>>>>>> refs/remotes/origin/main
 						</div>
 						
+<<<<<<< HEAD
 						<div class="form-group">
 							<label for="company_name">Tên công ty:</label>
 							<input type="text" class="form-control" id="company_name" name="company_name"
@@ -70,6 +117,9 @@
 
 						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
 							th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+=======
+						<button type="submit" class="btn btn-primary" th:text="${company.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+>>>>>>> refs/remotes/origin/main
 					</form>
 				</div>
 			</div>
