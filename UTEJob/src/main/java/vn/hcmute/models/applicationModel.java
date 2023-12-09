@@ -10,4 +10,9 @@ public class applicationModel {
 	private boolean status;
 	private int internship_id;
 	private int student_id;
+	
+	private boolean isEdit;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }

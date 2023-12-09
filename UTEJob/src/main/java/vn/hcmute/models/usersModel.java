@@ -7,9 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 public class usersModel {
 	private int user_id;
-	private String user_name;
+	private String username;
 	private String email;
 	private String password;
-	private int role;
 	private boolean isEnabled = false;
 }

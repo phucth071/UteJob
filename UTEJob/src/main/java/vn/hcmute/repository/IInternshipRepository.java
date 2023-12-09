@@ -1,5 +1,8 @@
 package vn.hcmute.repository;
 
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +15,6 @@ import java.util.List;
 public interface IInternshipRepository extends JpaRepository<internship, Integer> {
 	//@Query("SELECT u FROM internship u WHERE u.job_nature = :job_nature")
 	//List<internship> getListIntershipByJobNature(@Param("job_nature") String job_nature);
-	
+	List<internship> findByStatus(boolean status);
 	List<internship> findByJobnature(String jobnature);
 }

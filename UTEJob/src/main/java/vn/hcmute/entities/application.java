@@ -16,14 +16,21 @@ public class application {
 	@Column(columnDefinition = "bit")
 	private boolean status;
 	
-	@ManyToOne(targetEntity = internship.class)
-	@JoinColumn(name = "internship_id", insertable=false, updatable=false)
-	private internship internship;
 	
-	@ManyToOne(targetEntity = student.class)
-	@JoinColumn(name = "student_id", insertable=false, updatable=false)
-	private student student;
+	@Column(name = "internship_id")
+    private Integer internship_id;
+	@Column(name = "student_id")
+    private Integer student_id;
 	
-	@OneToMany(targetEntity = review.class, mappedBy = "application", fetch = FetchType.EAGER)
-	private Set<review> reviews;
+	
+//	@ManyToOne(targetEntity = internship.class)
+//	@JoinColumn(name = "internship_id", insertable=false, updatable=false)
+//	private internship internship;
+//	
+//	@ManyToOne(targetEntity = student.class)
+//	@JoinColumn(name = "student_id", insertable=false, updatable=false)
+//	private student student;
+//	
+//	@OneToMany(targetEntity = review.class, mappedBy = "application", fetch = FetchType.EAGER)
+//	private Set<review> reviews;
 }

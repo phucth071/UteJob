@@ -10,16 +10,7 @@ import vn.hcmute.entities.internship;
 import vn.hcmute.repository.IInternshipRepository;
 import vn.hcmute.services.IInternshipService;
 
-@Service
 public class InternshipServiceImpl implements IInternshipService{
-	@Autowired
-	IInternshipRepository internshipRepo;
-
-	public InternshipServiceImpl(IInternshipRepository internshipRepo) {
-		
-		this.internshipRepo = internshipRepo;
-	}
-
 	@Override
 	public <S extends internship> S save(S entity) {
 		return internshipRepo.save(entity);
@@ -31,31 +22,38 @@ public class InternshipServiceImpl implements IInternshipService{
 	}
 
 	@Override
-	public List<internship> findAllById(Iterable<Integer> ids) {
-		return internshipRepo.findAllById(ids);
-	}
-
-	@Override
 	public Optional<internship> findById(Integer id) {
 		return internshipRepo.findById(id);
-	}
-
-	@Override
-	public long count() {
-		return internshipRepo.count();
 	}
 
 	@Override
 	public void deleteById(Integer id) {
 		internshipRepo.deleteById(id);
 	}
+	
+
+	@Autowired
+	IInternshipRepository internshipRepo;
+
+
+	@Override
+	public List<internship> findByStatus(boolean status) {
+		// TODO Auto-generated method stub
+		return internshipRepo.findByStatus(status);
+	}
+
+
+	
 
 	@Override
 	public List<internship> findByJobnature(String job_nature) {
 		return internshipRepo.findByJobnature(job_nature);
 	}
 
-	
-	
+	@Override
+	public List<internship> findAllById(Iterable<Integer> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

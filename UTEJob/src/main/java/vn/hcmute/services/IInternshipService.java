@@ -9,8 +9,6 @@ public interface IInternshipService {
 
 	void deleteById(Integer id);
 
-	long count();
-
 	Optional<internship> findById(Integer id);
 
 	List<internship> findAllById(Iterable<Integer> ids);
@@ -20,4 +18,6 @@ public interface IInternshipService {
 	<S extends internship> S save(S entity);
 
 	List<internship> findByJobnature(String job_nature);
+	
+	List<internship> findByStatus(boolean status);
 }

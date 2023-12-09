@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.NaturalId;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,9 +15,9 @@ public class users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
-	
+
 	@Column(columnDefinition = "nvarchar(255)")
-	private String user_name;
+	private String username;
 	@Column(columnDefinition = "varchar(255)")
 	@NaturalId
 	private String email;
@@ -33,17 +32,13 @@ public class users {
 			inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	private Set<roles> roles = new HashSet<>();
-	
-	
-	/*
-	 * @OneToOne(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "student_id") private student student;
-	 * 
-	 * @OneToOne(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name = "company_id") private company company;
-	 */
 
-	
+//	@OneToOne(cascade = CascadeType.ALL)
+//
+//	@JoinColumn(name = "student_id")
+//	private student student;
+
+//	@OneToOne(mappedBy = "users",cascade = CascadeType.ALL)
+//	private company company;
+
 }

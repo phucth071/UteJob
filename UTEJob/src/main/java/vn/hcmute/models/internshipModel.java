@@ -15,4 +15,7 @@ public class internshipModel {
 	private int company_id;
 	
 	private Boolean isEdit=false;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }

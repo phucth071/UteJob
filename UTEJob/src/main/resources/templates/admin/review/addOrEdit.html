@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+<head>
+	<title>Review</title>
+	<script th:inline="javascript">
+		function showConfirm() {
+			var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
+			return confirmation;
+		}
+		function validateForm() {
+			var formInputs = document.querySelectorAll('input, select, textarea');
+			var isValid = true;
+
+			formInputs.forEach(function (input) {
+				if (input.required && !input.value.trim()) {
+					input.classList.add('is-invalid'); // Thêm class để hiển thị border đỏ hoặc thông báo lỗi
+					isValid = false;
+				} else {
+					input.classList.remove('is-invalid');
+				}
+			});
+
+			if (!isValid) {
+				alert('Vui lòng điền đầy đủ thông tin');
+			}
+
+			return isValid; // Ngăn form submit nếu có lỗi
+		}
+	</script>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<form th:action="@{/admin/review/saveOrUpdate}" method="post">
+						<h1 th:text="${review.isEdit ? 'Chỉnh sửa thông tin ' : 'Thêm mới thông tin'}">
+						</h1>
+						<div class="form-group d-none">
+							<label for="application_id">id :</label> <input readonly type="text" class="form-control"
+								id="review_id" name="review_id" th:value="${review.review_id}" >
+						</div>
+
+						<div class="form-group">
+							<label for="comment">Bình luận :</label> <input type="text" class="form-control" id="comment"
+								name="comment" th:value="${review.comment}" required>
+						</div>
+
+						<div class="form-group">
+							<label for="rating">Đánh giá :</label> <input type="text" class="form-control" id="rating"
+								name="rating" th:value="${review.rating}" required>
+						</div>
+						<div class="form-group">
+							<label for="application_id">Application ID:</label> <input type="text" class="form-control"
+								id="application_id" name="application_id" th:value="${review.application_id}" required>
+						</div>
+							<a th:href="${review.isEdit} ? @{/admin/review/add} : @{/admin/review/add}">
+							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
+								<span th:text="${review.isEdit} ? 'Thêm mới' : 'Reset'"></span>
+							</button>
+						</a>	
+
+						<button type="submit" class="btn btn-primary" onclick="return showConfirm()"
+							th:text="${review.isEdit ? 'Chỉnh sửa' : 'Thêm'}" ></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

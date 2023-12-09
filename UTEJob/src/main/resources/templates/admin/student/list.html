@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/layout-admin.html}">
 
+<head>
+	<title>Student</title>
+</head>
+
 <body>
 	<section layout:fragment="content">
 		<div class="col mt-4">
@@ -16,7 +20,17 @@
 					<i th:text="${message}"></i>
 				</div>
 			</div>
-
+			<div class=row mt-2 mb-2>
+				<div class="col-md-6">
+					<form action="/admin/student/search">
+						<div class="input-group">
+							<input type="text" class="form-control ml-2" name="name" id="name"
+								placeholder="Nhập để tìm kiếm" />
+							<button class="btn btn-outline-primary ml-2">Search</button>
+						</div>
+					</form>
+				</div>
+			</div>
 			<table class=" table table-striped " id="form-company">
 				<thead class="thead-inverse">
 					<tr>
@@ -39,8 +53,10 @@
 							<a th:href="@{'/admin/student/edit/' + ${student.student_id}}">
 								<i class='fas fa-edit' style='font-size:24px'></i>
 							</a>
-							<a th:href="@{'/admin/student/delete/' + ${student.student_id}}">
-								<i class="fa-regular fa-trash-can " style='font-size:24px; margin-left:12px'></i>
+							<a>
+								<i class="fa-regular fa-trash-can " style='font-size:24px; margin-left:12px'
+									th:data-id="${student.student_id}"
+									onclick="showconfirmation(this.getAttribute('data-id'))"></i>
 							</a>
 
 						</td>
@@ -48,6 +64,35 @@
 					</tr>
 				</tbody>
 			</table>
+			<script type="text/javascript">
+				function showconfirmation(id) {
+					$('#yesOption').click(function () {
+						window.location.href = '/admin/student/delete/' + id;
+					}); $('#confirmationId').modal('show');
+
+				}
+			</script>
+			<div class="modal" id="confirmationId" tabindex="-1" aria-labelledby="confirmationLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="confirmationLabel">Confirmation</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+								onclick="window.location.href='/admin/student'"></button>
+						</div>
+						<div class="modal-body">
+							Bạn có muốn xoá?
+						</div>
+						<div class="modal-footer">
+							<button id="yesOption" type="button" class="btn btn-primary">Yes</button>
+
+
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+								onclick="window.location.href='/admin/student'">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </body>

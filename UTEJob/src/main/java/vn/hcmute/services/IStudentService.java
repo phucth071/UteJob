@@ -3,9 +3,11 @@ package vn.hcmute.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import vn.hcmute.entities.student;
+
 @Service
 public interface IStudentService {
 
@@ -16,5 +18,7 @@ public interface IStudentService {
 	List<student> findAll();
 
 	<S extends student> S save(S entity);
+
+	List<student> findByFirstnameContaining(@Param("name") String name);
 
 }

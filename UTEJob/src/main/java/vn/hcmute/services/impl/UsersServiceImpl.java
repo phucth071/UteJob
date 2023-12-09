@@ -25,15 +25,15 @@ public class UsersServiceImpl implements IUsersService{
 	public UsersServiceImpl(IUsersRepository userRepo) {
 		this.userRepo = userRepo;
 	}
-	
+
 	@Override
-	public users login(String email, String password) {
-		Optional<users> opt = findByEmail(email);
-		if (opt.isPresent() && bCryptPasswordEncoder.matches(password, opt.get().getPassword())) {
-			opt.get().setPassword("");
-			return opt.get();
-		}
-		return null;
+	public Optional<users> findByUsername(String username) {
+		return userRepo.findByUsername(username);
+	}
+
+	@Override
+	public Optional<users> findByUsernameOrEmail(String username, String email) {
+		return userRepo.findByUsernameOrEmail(username, email);
 	}
 
 	@Override
@@ -97,6 +97,15 @@ public class UsersServiceImpl implements IUsersService{
 		return userRepo.findById(id);
 	}
 
-	
+	@Override
+	public boolean existsByEmail(String email) {
+		return userRepo.existsByEmail(email);
+	}
+
+	@Override
+	public boolean existsByUsername(String username) {
+		return userRepo.existsByUsername(username);
+	}
+
 	
 }

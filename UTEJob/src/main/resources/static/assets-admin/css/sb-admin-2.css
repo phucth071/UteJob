@@ -9871,6 +9871,10 @@ a:focus {
   -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
   animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
 }
+/* CSS */
+a.nav-link:visited {
+    background-color: black; /* Đổi màu nền của link đã được click thành xám */
+}
 
 @-webkit-keyframes fadeIn {
   0% {

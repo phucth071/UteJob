@@ -10,4 +10,9 @@ public class reviewModel {
 	private String comment;
 	private double rating;
 	private int application_id;
+	
+	private boolean isEdit;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }
