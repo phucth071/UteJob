@@ -30,7 +30,7 @@ import vn.hcmute.services.IInternshipService;
 @RequestMapping("admin/internship")
 public class InternshipController {
 	@Autowired
-	IInternshipService internService;
+	private IInternshipService internService;
 	@Autowired
 	ICompanyService companyService;
 
@@ -41,9 +41,9 @@ public class InternshipController {
 		Map<Integer, String> companyNames = new HashMap<>();
 
 		for (internship internship : list) {
-			int companyId = internship.getCompany_id();
-			String companyName = companyService.findCompanyNameByCompanyId(companyId);
-			companyNames.put(companyId, companyName);
+			//int companyId = internship.getCompany_id();
+			//String companyName = companyService.findCompanyNameByCompanyId(companyId);
+			//companyNames.put(companyId, companyName);
 		}
 		model.addAttribute("companyNames", companyNames);
 		model.addAttribute("internship", list);
@@ -53,7 +53,7 @@ public class InternshipController {
 	@GetMapping("add")
 	public String Add(ModelMap model) {
 		internshipModel internship = new internshipModel();
-		internship.setEdit(false);
+		internship.setIsEdit(false);
 		model.addAttribute("companies", companyService.findAll());
 		model.addAttribute("internship", internship);
 		return "admin/internship/addOrEdit";
@@ -87,7 +87,7 @@ public class InternshipController {
 		if (opt.isPresent()) {
 			internship enity = opt.get();
 			BeanUtils.copyProperties(enity, internship);
-			internship.setEdit(true);
+			internship.setIsEdit(true);
 			model.addAttribute("companies", companyService.findAll());
 			model.addAttribute("internship", internship);
 			// Suppose you have fetched the internship and have its company_id
@@ -125,9 +125,9 @@ public class InternshipController {
 		Map<Integer, String> companyNames = new HashMap<>();
 
 		for (internship internship : list) {
-		    int companyId = internship.getCompany_id();
-		    String companyName = companyService.findCompanyNameByCompanyId(companyId); 
-			    companyNames.put(companyId, companyName); 
+		    //int companyId = internship.getCompany_id();
+		    //String companyName = companyService.findCompanyNameByCompanyId(companyId); 
+			//    companyNames.put(companyId, companyName); 
 			}
 		model.addAttribute("companyNames", companyNames); 
 		model.addAttribute("internship",list);

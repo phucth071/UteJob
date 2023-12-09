@@ -23,7 +23,7 @@ import vn.hcmute.services.IInternshipService;
 
 @Controller
 @RequestMapping("/internship")
-public class InternshipController {
+public class UserInternshipController {
 	@Autowired
 	IInternshipService internshipService;
 

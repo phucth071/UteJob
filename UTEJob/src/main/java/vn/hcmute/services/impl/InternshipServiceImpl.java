@@ -10,6 +10,7 @@ import vn.hcmute.entities.internship;
 import vn.hcmute.repository.IInternshipRepository;
 import vn.hcmute.services.IInternshipService;
 
+@Service
 public class InternshipServiceImpl implements IInternshipService{
 	@Override
 	public <S extends internship> S save(S entity) {

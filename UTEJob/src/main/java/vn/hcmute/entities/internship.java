@@ -23,8 +23,6 @@ public class internship {
 	private String salary;
 	@Column(columnDefinition = "bit")
 	private boolean status;
-
-	private int company_id;
 //	@OneToMany(targetEntity = application.class, mappedBy = "internship", fetch = FetchType.EAGER)
 //	private Set<application> applications;
 ////	
