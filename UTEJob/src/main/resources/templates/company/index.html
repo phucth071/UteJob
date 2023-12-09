@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{company/layout-company-manager.html}">
+
+<body>
+	<section layout:fragment="content">
+		<h1>SECTION CONTENT</h1>
+		<th:block th:if="${session.msg}">
+			<div class="alert alert-primary" role="alert">[[${session.msg}]]</div>
+			<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+		</th:block>
+	</section>
+</body>
+
+</html>

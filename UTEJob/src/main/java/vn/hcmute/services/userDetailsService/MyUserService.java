@@ -41,7 +41,11 @@ public class MyUserService implements UserDetails{
 		}
 		return authorities;
 	}
-
+	
+	public boolean hasRole(String rolename) {
+		return this.user.hasRole(rolename);
+	}
+	
 	@Override
 	public String getPassword() {
 		return user.getPassword();
@@ -72,4 +76,7 @@ public class MyUserService implements UserDetails{
 		return user.isEnabled();
 	}
 	
+	public users getUsers() {
+		return this.user;
+	}
 }

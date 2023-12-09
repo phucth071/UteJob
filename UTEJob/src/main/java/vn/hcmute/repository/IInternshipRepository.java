@@ -9,9 +9,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import vn.hcmute.entities.internship;
+import vn.hcmute.entities.users;
 
 @Repository
 public interface IInternshipRepository extends JpaRepository<internship, Integer>{
+	
     List<internship> findByStatus(boolean status);
 
 

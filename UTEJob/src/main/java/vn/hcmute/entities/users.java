@@ -1,6 +1,7 @@
 package vn.hcmute.entities;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.hibernate.annotations.NaturalId;
@@ -32,7 +33,18 @@ public class users {
 			inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	private Set<roles> roles = new HashSet<>();
-
+	
+	public boolean hasRole(String rolename) {
+		Iterator<roles> iter = this.roles.iterator();
+		while (iter.hasNext()) {
+			roles role = iter.next();
+			if (role.getName().equals(rolename)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 //	@OneToOne(cascade = CascadeType.ALL)
 //
 //	@JoinColumn(name = "student_id")

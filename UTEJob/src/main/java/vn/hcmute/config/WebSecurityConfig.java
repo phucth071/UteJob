@@ -73,9 +73,11 @@ public class WebSecurityConfig {
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/assets/**")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/assets-admin/**")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasAuthority("ADMIN")
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/company/signup-company")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/company/**")).hasAuthority("COMPANY")
 						.anyRequest().authenticated()
 				)
-				.formLogin().loginPage("/login").successForwardUrl("/").permitAll()
+				.formLogin().loginPage("/login").successHandler(loginSuccessHandler).permitAll()
 				.and()
 				.exceptionHandling().accessDeniedPage("/403")
 				.and()
@@ -83,4 +85,6 @@ public class WebSecurityConfig {
 				.and()
 				.build();				
 	}
+	@Autowired
+	private LoginSuccessHandler loginSuccessHandler;
 }
