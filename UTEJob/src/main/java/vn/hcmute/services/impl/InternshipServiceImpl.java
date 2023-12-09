@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import vn.hcmute.entities.internship;
 import vn.hcmute.repository.IInternshipRepository;
 import vn.hcmute.services.IInternshipService;
+
 @Service
 public class InternshipServiceImpl implements IInternshipService{
 	@Override
@@ -45,6 +46,15 @@ public class InternshipServiceImpl implements IInternshipService{
 
 	
 
+	@Override
+	public List<internship> findByJobnature(String job_nature) {
+		return internshipRepo.findByJobnature(job_nature);
+	}
 
-	
+	@Override
+	public List<internship> findAllById(Iterable<Integer> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

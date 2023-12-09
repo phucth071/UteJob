@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.http.HttpHeaders;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.persistence.Entity;
 
 import jakarta.validation.Valid;
+import vn.hcmute.config.StorageProperties;
 import vn.hcmute.entities.company;
 import vn.hcmute.entities.student;
 import vn.hcmute.entities.users;
@@ -36,6 +38,7 @@ import vn.hcmute.models.usersModel;
 import vn.hcmute.services.ICompanyService;
 import vn.hcmute.services.IStorageService;
 import vn.hcmute.services.IUsersService;
+import vn.hcmute.services.impl.StorageServiceImpl;
 
 @Controller
 @RequestMapping("admin/company")
@@ -45,7 +48,7 @@ public class CompanyController {
 	@Autowired
 	IUsersService userService;
 	@Autowired
-	private IStorageService storageService;
+	IStorageService storageService;
 //	@ModelAttribute("users")
 //	public List<usersModel> getUsers(){
 //		return userService.findAll().stream().map(item->{
