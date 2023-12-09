@@ -18,8 +18,8 @@ public class internship {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String full_description;
 	@Column(columnDefinition = "varchar(255)")
-	private String job_nature;
-	@Column(columnDefinition = "varchar(255)")
+	private String jobnature;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String salary;
 	@Column(columnDefinition = "bit")
 	private boolean status;

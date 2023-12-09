@@ -14,7 +14,7 @@ import vn.hcmute.services.IUsersService;
 import vn.hcmute.services.impl.UsersServiceImpl;
 
 @RestController
-@RequestMapping("/utejob")
+@RequestMapping("/")
 public class UserController {
 	@RequestMapping
 	public ModelAndView home() {
