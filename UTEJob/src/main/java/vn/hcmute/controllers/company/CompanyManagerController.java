@@ -96,38 +96,34 @@ public class CompanyManagerController {
 	public ModelAndView listJob(Model model, @AuthenticationPrincipal UserDetails curuser) {
 		users user = (users) userService.findByEmail(curuser.getUsername()).get();
 		company c = companyService.findByUserid(user.getUser_id());
-		Set<internship> list = c.getInternships();
-		
+		List<internship> list = c.getInternships();
 		model.addAttribute("internships", list);
 		return new ModelAndView("company/listjob");
 	}
-	@GetMapping("add")
-	public String Add(ModelMap model) {
+	@GetMapping("/internship/add")
+	public String Add(ModelMap model, @AuthenticationPrincipal UserDetails curuser) {
+		users user = (users) userService.findByEmail(curuser.getUsername()).get();
+		company c = companyService.findByUserid(user.getUser_id());
+		
 		internshipModel internship = new internshipModel();
 		internship.setIsEdit(false);
-		model.addAttribute("companies", companyService.findAll());
+		model.addAttribute("company_id", c.getCompany_id());
 		model.addAttribute("internship", internship);
-		return "admin/internship/addOrEdit";
+		return "company/addOrEditInternship";
 	}
 
-	@PostMapping("saveOrUpdate")
+	@PostMapping("internship/saveOrUpdate")
 	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("internship") internshipModel internship,
 			BindingResult result) {
 		if (result.hasErrors()) {
-			return new ModelAndView("admin/internship/addOrEdit", model);
+			return new ModelAndView("company/addOrEditInternship", model);
 		}
 		internship enity = new internship();
 		BeanUtils.copyProperties(internship, enity);
-
+		enity.setCompany_id(internship.getCompany_id());
 		internshipService.save(enity);
-		String message = "";
-		if (internship.getIsEdit() == true) {
-			message = "Thành công";
-		} else {
-			message = "Thành công";
-		}
-		model.addAttribute("message", message);
-		return new ModelAndView("forward:/admin/internship", model);
+		
+		return new ModelAndView("redirect:/company/listjob", model);
 	}
 
 	@GetMapping("edit/{internship_id}")
@@ -145,16 +141,16 @@ public class CompanyManagerController {
 			int internshipCompanyId = internship.getCompany_id();
 			model.addAttribute("selectedCompanyId", internshipCompanyId);
 
-			return new ModelAndView("admin/internship/addOrEdit", model);
+			return new ModelAndView("company/addOrEditInternship", model);
 		}
 		model.addAttribute("message", "Không tồn tại");
-		return new ModelAndView("forward:/admin/internship", model);
+		return new ModelAndView("forward:/company/listjob", model);
 	}
 
 	@GetMapping("delete/{internship_id}")
 	public ModelAndView delete(ModelMap model, @PathVariable("internship_id") int internship_id) {
 		internshipService.deleteById(internship_id);
 		model.addAttribute("message", "Xóa thành công");
-		return new ModelAndView("forward:/admin/internship", model);
+		return new ModelAndView("company/listjob", model);
 	}
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
+
+<body>
+	<section layout:fragment="content" th:object="${internship}">
+		<!-- Job Detail Start -->
+		<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+			<div class="container">
+				<div class="row gy-5 gx-4">
+					<div class="col-12">
+						<div class="d-flex align-items-center mb-5">
+							<img class="flex-shrink-0 img-fluid border rounded" th:src="*{company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}"
+									        alt="" style="width: 80px; height: 80px;">
+							<div class="text-start ps-4">
+								<h3 class="mb-3" th:text="*{title}"></h3>
+							
+								<span class="text-truncate me-3" ><i 
+										class="far fa-clock text-primary me-2" ></i><span th:text="*{jobnature}"></span></span>
+								<span class="text-truncate me-0" ><i
+										class="far fa-money-bill-alt text-primary me-2"></i><span th:text="*{salary}"></span></span>
+							</div>
+						</div>
+
+						<div class="mb-5">
+							<h4 class="mb-3">Mô tả công việc</h4>
+							<p th:text="*{full_description}"></p>
+						</div>
+
+						<div class="">
+							<h4 class="mb-4">Ứng tuyển ngay</h4>
+							<form>
+								<div class="row g-3">
+									<div class="col-12 col-sm-6">
+										<input type="text" class="form-control" placeholder="Your Name">
+									</div>
+									<div class="col-12 col-sm-6">
+										<input type="email" class="form-control" placeholder="Your Email">
+									</div>
+									<div class="col-12 col-sm-6">
+										<input type="text" class="form-control" placeholder="Portfolio Website">
+									</div>
+									<div class="col-12 col-sm-6">
+										<input type="file" class="form-control bg-white">
+									</div>
+									<div class="col-12">
+										<textarea class="form-control" rows="5" placeholder="Coverletter"></textarea>
+									</div>
+									<div class="col-12">
+										<button class="btn btn-primary w-100" type="submit">Apply Now</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Job Detail End -->
+	</section>
+</body>
+
+</html>

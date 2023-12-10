@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{admin/layout-admin.html}">
+	layout:decorate="~{company/layout-company-manager.html}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>Internship</title>
@@ -37,68 +37,54 @@
 
 			<div class="row">
 				<div class="col-sm-12">
-					<form th:action="@{/admin/internship/saveOrUpdate}" method="post">
+					<form th:action="@{/company/internship/saveOrUpdate}" method="POST" th:object="${internship}">
 						<h1
 							th:text="${internship.isEdit ? 'Chỉnh sửa thông tin tuyển dụng' : 'Thêm mới thông tin tuyển dụng'}">
 						</h1>
 						<div class="form-group d-none">
 							<label for="internship_id">id :</label> <input readonly type="text" class="form-control"
-								id="internship_id" name="internship_id" th:value="${internship.internship_id}">
+								id="internship_id" name="internship_id" th:field="*{internship_id}">
 						</div>
 						<div class="form-group">
 							<label for="full_description">Chi tiết công việc :</label> <input type="text"
 								class="form-control" id="full_description" name="full_description"
-								th:value="${internship.full_description}" required>
+								th:field="*{full_description}" required>
 						</div>
 						<div class="form-group">
 							<label for="job_nature">Tính chất công việc :</label> <input type="text"
 								class="form-control" id="jobnature" name="jobnature"
-								th:value="${internship.jobnature}" required>
+								th:field="*{jobnature}" required>
 						</div>
 						<div class="form-group">
 							<label for="salary">Lương :</label> <input type="text" class="form-control" id="salary"
-								name="salary" th:value="${internship.salary}" required>
+								name="salary" th:field="*{salary}" required>
 						</div>
 
 						<div class="form-group">
 							<label for="status">Trạng thái:</label>
-							<select class="form-control" id="status" name="status">
-								<option value="true" th:selected="${internship.status == true}">Còn tuyển</option>
-								<option value="false" th:selected="${internship.status == false}">Hết tuyển
-								</option>
+							<select class="form-control" id="status" name="status" th:field="*{status}">
+								<option value="true">Còn tuyển</option>
+								<option value="false">Hết tuyển</option>
 							</select>
 						</div>
-
 
 						<div class="form-group">
 							<label for="title">Tiêu đề :</label> <input type="text" class="form-control" id="title"
-								name="title" th:value="${internship.title}" required>
+								name="title" th:field="*{title}" required>
 						</div>
-
-
-						<div class="form-group">
-							<label for="company_id">Chọn công ty:</label>
-							<select class="form-control" id="company_id" name="company_id">
-								<option th:each="company : ${companies}" th:value="${company.company_id}"
-									th:text="${company.company_name}"
-									th:selected="${company.company_id == selectedCompanyId}">
-								</option>
-							</select>
+						<div class="form-group d-none">
+							<label for="title">company_id</label> <input type="text" class="form-control" id="company_id"
+								name="company_id" th:value="${company_id}" required>
 						</div>
-						<a th:href="${internship.isEdit} ? @{/admin/internship/add} : @{/admin/internship/add}">
-							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
-								<span th:text="${internship.isEdit} ? 'Thêm mới' : 'Reset'"></span>
-							</button>
-						</a>
-
-
-						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
-							th:text="${internship.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+						<button type="submit" class="btn btn-primary"
+							th:text="*{isEdit? 'Chỉnh sửa' : 'Thêm'}"></button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
+</html>
 
 </html>

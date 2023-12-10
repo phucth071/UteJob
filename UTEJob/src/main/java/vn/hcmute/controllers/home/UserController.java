@@ -1,4 +1,4 @@
-package vn.hcmute.controllers.user;
+package vn.hcmute.controllers.home;
 
 import java.util.List;
 

@@ -33,14 +33,14 @@ public class CompanyManagerRestController {
 	IUsersService usersService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<Set<internship>> listAllInternShipByCompany(@AuthenticationPrincipal UserDetails curuser) {
+	public ResponseEntity<List<internship>> listAllInternShipByCompany(@AuthenticationPrincipal UserDetails curuser) {
 		users user = (users) usersService.findByEmail(curuser.getUsername()).get();
 		company c = companyService.findByUserid(user.getUser_id());
-		Set<internship> list = c.getInternships();
+		List<internship> list = c.getInternships();
 		if (list.isEmpty()) {
-			return new ResponseEntity<Set<internship>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<internship>>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Set<internship>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<internship>>(list, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public internship save(@Valid @RequestBody internship entity) {

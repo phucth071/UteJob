@@ -11,9 +11,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import vn.hcmute.config.BCryptEncoder;
 import vn.hcmute.entities.roles;
 import vn.hcmute.entities.users;
 import vn.hcmute.models.signUpDto;
@@ -28,6 +30,7 @@ public class CustomUserDetailsService implements DefaultUserService{
 	private IRolesRepository roleRepo;
 	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

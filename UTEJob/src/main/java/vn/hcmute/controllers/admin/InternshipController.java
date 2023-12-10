@@ -57,16 +57,7 @@ public class InternshipController {
 		}
 		internship enity = new internship();
 		BeanUtils.copyProperties(internship, enity);
-
-		internService.save(enity);
-		String message = "";
-		if (internship.getIsEdit() == true) {
-			message = "Thành công";
-		} else {
-			message = "Thành công";
-		}
-		model.addAttribute("message", message);
-		return new ModelAndView("forward:/admin/internship", model);
+		return new ModelAndView("redirect:/admin/internship", model);
 	}
 
 	@GetMapping("edit/{internship_id}")

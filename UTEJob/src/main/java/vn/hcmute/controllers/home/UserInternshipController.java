@@ -1,4 +1,4 @@
-package vn.hcmute.controllers.user;
+package vn.hcmute.controllers.home;
 
 import java.util.Iterator;
 import java.util.List;
@@ -37,11 +37,14 @@ public class UserInternshipController {
 		List<internship> partTimeInternships = internshipService.findByJobnature("Part time");
 		// Chuyển dữ liệu từ Iterable sang List để sử dụng trong Thymeleaf
 		model.addAttribute("partTimeInternships", partTimeInternships);
-		for (Iterator iterator = partTimeInternships.iterator(); iterator.hasNext();) {
-			internship internship = (internship) iterator.next();
-			System.out.println(internship.getTitle());
-		}
 		return "user/internship/list";
 	}
 
+	@GetMapping("internship/details/{internship_id}")
+	public ModelAndView details(ModelMap model, @PathVariable("internship_id") int internship_id) {
+		Optional<internship> opt = internshipService.findById(internship_id);
+		internship entity = opt.get();
+		model.addAttribute("internship", entity);
+		return new ModelAndView("user/internship/details", model);
+	}
 }
