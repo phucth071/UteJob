@@ -22,7 +22,7 @@
 			</div>
 			<div class="row mt-2 mb-2">
 				<div class="col-md-6">
-					<form action="/admin/application/search">
+					<form action="/admin/application/searchpage">
 						<div class="input-group">
 
 							<select class="form-control ml-2" name="status" id="status">
@@ -35,38 +35,50 @@
 					</form>
 				</div>
 			</div>
-			<table class=" table table-striped " id="form-company">
-				<thead class="thead-inverse">
-					<tr>
-						<th>ID</th>
-						<th>Trạng thái</th>
-						<th>InternshipID</th>
-						<th>StudentID</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="app : ${app}">
-						<td th:text="${app.application_id}"></td>
-						<td th:text="${app.status}? 'Đã duyệt' : 'Chưa duyệt'"></td>
-						<td th:text="${app.internship_id}"></td>
-						<td th:text="${app.student_id}"></td>
 
-						<td>
-							<a th:href="@{'/admin/application/edit/' + ${app.application_id}}">
-								<i class='fas fa-edit' style='font-size:24px'></i>
-							</a>
-							<a>
-								<i class="fa-regular fa-trash-can " style='font-size:24px; margin-left:12px'
-									th:data-id="${app.application_id}"
-									onclick="showconfirmation(this.getAttribute('data-id'))"></i>
-							</a>
+			<div th:if="${!applicationPage.hasContent()}">
+				<div class="row">
+					<div class="col">
+						<div class="alert alert-primary">
+							Khong tim thay
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:if="${applicationPage.hasContent()}">
+				<table class=" table table-striped " id="form-company">
+					<thead class="thead-inverse">
+						<tr>
+							<th>ID</th>
+							<th>Trạng thái</th>
+							<th>InternshipID</th>
+							<th>StudentID</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="app : ${applicationPage.content}">
+							<td th:text="${app.application_id}"></td>
+							<td th:text="${app.status}? 'Đã duyệt' : 'Chưa duyệt'"></td>
+							<td th:text="${internshipNames[app.internship_id]}"></td>
+							<td th:text="${studentNames[app.student_id]}"></td>
+
+							<td>
+								<a th:href="@{'/admin/application/edit/' + ${app.application_id}}">
+									<i class='fas fa-edit' style='font-size:24px'></i>
+								</a>
+								<a>
+									<i class="fa-regular fa-trash-can " style='font-size:24px; margin-left:12px'
+										th:data-id="${app.application_id}"
+										onclick="showconfirmation(this.getAttribute('data-id'))"></i>
+								</a>
 
 
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<script type="text/javascript">
 				function showconfirmation(id) {
 					$('#yesOption').click(function () {
@@ -97,6 +109,60 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- phan trang -->
+		<div class="row">
+			<div class="col-5">
+				<form action="">
+					<div class="mb-3 input-group float-left">
+						<label for="size" class="mr-2">Page size :</label>
+						<select class="form-select ml-2" name="size" aria-label="size" id="size"
+							onchange="this.form.submit()">
+							<option ${studentPage.size==3 ? 'selected' :''} value="3">Chọn</option>
+							<option ${studentPage.size==3 ? 'selected' :''} value="3">3</option>
+							<option ${studentPage.size==5?'selected':''} value="5">5</option>
+							<option ${studentPage.size==10?'selected':''} value="10">10</option>
+
+						</select>
+					</div>
+				</form>
+
+			</div>
+			<div class-"col-7">
+				<div th:if="${applicationPage.totalPages >0}">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+
+							<li th:class="${applicationPage.number + 1 == 1 ? 'page-item active' : 'page-item'}">
+								<a class="page-link"
+									th:href="@{/admin/application/searchpage(name=${first_name}, size=${applicationPage.size}, page=1)}">First</a>
+							</li>
+
+							<div th:each="pageNumber :${pageNumbers}">
+								<div th:if="${applicationPage.totalPages>1}">
+									<li
+										th:class="${pageNumber == applicationPage.number + 1 ? 'page-item active' : 'page-item'}">
+										<a class="page-link"
+											th:href="@{/admin/application/searchpage(name=${first_name}, size=${applicationPage.size}, page=${pageNumber})}">
+											<span th:text="${pageNumber}"></span>
+										</a>
+									</li>
+								</div>
+							</div>
+							<li
+								th:class="${applicationPage.totalPages == applicationPage.number + 1 ? 'page-item active' : 'page-item'}">
+								<a class="page-link"
+									th:href="@{/admin/application/searchpage(name=${first_name}, size=${applicationPage.size}, page=${applicationPage.totalPages})}">Last</a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+		</div>
+
+		<!--ket thuc phan trang-->
 	</section>
 </body>
 

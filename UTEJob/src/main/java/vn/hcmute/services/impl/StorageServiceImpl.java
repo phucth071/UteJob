@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,7 @@ import vn.hcmute.services.IStorageService;
 public class StorageServiceImpl implements IStorageService{
 	private final Path rootLocation;
 	
-	
-	
+	@Autowired
 	public StorageServiceImpl(StorageProperties properties) {
 		this.rootLocation = Paths.get(properties.getLocation());
 	}

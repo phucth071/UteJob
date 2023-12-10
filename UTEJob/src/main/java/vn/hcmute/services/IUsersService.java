@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import vn.hcmute.entities.users;
@@ -60,5 +61,8 @@ public interface IUsersService {
 	boolean existsByUsername(String username);
 
 	boolean existsByEmail(String email);
+	
+    String findUserNameByUserId(@Param("userId") int userId);
+
 
 }
