@@ -11,4 +11,8 @@ public class usersModel {
 	private String email;
 	private String password;
 	private boolean isEnabled = false;
+	private boolean isEdit;
+	public boolean getIsEdit() {
+		return isEdit;
+	}
 }

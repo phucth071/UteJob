@@ -29,7 +29,6 @@ import vn.hcmute.entities.users;
 @Service
 public interface IUsersService {
 
-
 	<S extends users> List<S> findAll(Example<S> example);
 
 	<S extends users> S save(S entity);
@@ -49,7 +48,7 @@ public interface IUsersService {
 	void deleteAll();
 
 	void delete(users entity);
-	
+
 	Optional<users> findByEmail(String email);
 
 	Optional<users> findById(Integer id);
@@ -61,8 +60,13 @@ public interface IUsersService {
 	boolean existsByUsername(String username);
 
 	boolean existsByEmail(String email);
-	
-    String findUserNameByUserId(@Param("userId") int userId);
 
+	String findUserNameByUserId(@Param("userId") int userId);
+
+	List<users> findByUserNameContaining(String username);
+
+	Page<users> findByUserNameContaining(String username, Pageable page);
+
+	long count();
 
 }

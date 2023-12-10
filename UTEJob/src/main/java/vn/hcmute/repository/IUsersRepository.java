@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import vn.hcmute.entities.company;
 import vn.hcmute.entities.users;
 
 @Repository
@@ -33,4 +35,13 @@ public interface IUsersRepository extends JpaRepository<users, Integer> {
 	boolean existsByEmail(String email);
 
 	boolean existsByUsername(String username);
+
+	////////////////////
+	@Query("SELECT c FROM users c WHERE c.username LIKE %:name%")
+	List<users> findByUserNameContaining(@Param("name") String username);
+	@Query("SELECT c FROM users c WHERE c.username LIKE %:name%")
+	Page<users> findByUserNameContaining(@Param("name")String username, Pageable page);
+
+	@Query("SELECT c FROM users c")
+    Page<users> findAll(Pageable pageable);
 }

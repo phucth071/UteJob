@@ -32,6 +32,11 @@ public class UsersServiceImpl implements IUsersService{
 	}
 
 	@Override
+	public long count() {
+		return userRepo.count();
+	}
+
+	@Override
 	public Optional<users> findByUsernameOrEmail(String username, String email) {
 		return userRepo.findByUsernameOrEmail(username, email);
 	}
@@ -111,6 +116,18 @@ public class UsersServiceImpl implements IUsersService{
 	public String findUserNameByUserId(int userId) {
 		// TODO Auto-generated method stub
 		return userRepo.findUserNameByUserId(userId);
+	}
+
+	@Override
+	public List<users> findByUserNameContaining(String username) {
+		// TODO Auto-generated method stub
+		return userRepo.findByUserNameContaining(username);
+	}
+
+	@Override
+	public Page<users> findByUserNameContaining(String username, Pageable page) {
+		// TODO Auto-generated method stub
+		return userRepo.findByUserNameContaining(username, page);
 	}
 	
 

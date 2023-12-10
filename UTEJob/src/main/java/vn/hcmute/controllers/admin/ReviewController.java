@@ -34,14 +34,6 @@ public class ReviewController {
 	@Autowired
 	IApplicationService appService;
 	
-//	@ModelAttribute("application")
-//	public List<applicationModel> getApplicatons(){
-//		return appService.findAll().stream().map(item->{
-//			applicationModel app =new applicationModel();
-//			BeanUtils.copyProperties(item, app);
-//			return app;
-//		}).toList();
-//	}
 
 	@RequestMapping("")
 	public String list(ModelMap model) {

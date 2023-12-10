@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/layout-admin.html}">
+
+<head>
+	<title>Thêm công ty</title>
+	<script th:inline="javascript">
+		function showConfirm() {
+			var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
+			return confirmation;
+		}
+		function validateForm() {
+			var formInputs = document.querySelectorAll('input, select, textarea');
+			var isValid = true;
+
+			formInputs.forEach(function (input) {
+				if (input.required && !input.value.trim()) {
+					input.classList.add('is-invalid'); // Thêm class để hiển thị border đỏ hoặc thông báo lỗi
+					isValid = false;
+				} else {
+					input.classList.remove('is-invalid');
+				}
+			});
+
+			if (!isValid) {
+				alert('Vui lòng điền đầy đủ thông tin');
+			}
+
+			return isValid; // Ngăn form submit nếu có lỗi
+		}
+	</script>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+
+			<div class="row">
+				<div class="col mt-4">
+					<form th:action="@{/admin/account/saveOrUpdate}" method="post" enctype="multipart/form-data"
+						th:object="${account}">
+						<div class="col-12">
+							<h1 th:text="${account.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
+							<input type="hidden" th:field="*{isEdit}">
+							<div class="form-group d-none">
+								<label for="user_id">Id :</label> <input readonly type="text" class="form-control"
+									id="user_id" name="user_id" th:field="*{user_id}" required>
+							</div>
+							<div class="form-group">
+								<label for="username">Username:</label> <input type="text" class="form-control"
+									id="username" name="username" th:field="*{username}" required>
+							</div>
+							<div class="form-group">
+								<label for="password">Password:</label> <input type="text" class="form-control"
+									id="password" name="password" th:field="*{password}" required>
+							</div>
+							<div class="form-group">
+								<label for="email">Email:</label> <input type="text" class="form-control"
+									id="email" name="email" th:field="*{email}" required>
+							</div>
+							<div class="form-group">
+							<label for="is_enabled">Trạng thái:</label>
+							<select class="form-control" id="is_enabled" name="is_enabled">																				
+								<option value="true" th:selected="${account.isEnabled == true}">Hoạt động</option>
+								<option value="false" th:selected="${account.isEnabled == false}">Không hoạt động
+								</option>
+							</select>
+						</div>
+
+
+						<a th:href="${account.isEdit} ? @{/admin/account/add} : @{/admin/account/add}">
+							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
+								<span th:text="${account.isEdit} ? 'Thêm mới' : 'Reset'"></span>
+							</button>
+						</a>
+
+						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
+							th:text="${account.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
