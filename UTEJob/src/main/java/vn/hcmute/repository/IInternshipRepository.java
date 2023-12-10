@@ -18,7 +18,7 @@ public interface IInternshipRepository extends JpaRepository<internship, Integer
 	
     List<internship> findByStatus(boolean status);
     List<internship> findByJobnature(String jobnature);
-    @Query("SELECT c.job_nature FROM internship c WHERE c.internship_id = :name")
+    @Query("SELECT c.jobnature FROM internship c WHERE c.internship_id = :name")
 	String findInternshipByInternshipId(@Param("name") int internshipId);
 	
 	@Query("SELECT a FROM internship a WHERE a.status = :status")

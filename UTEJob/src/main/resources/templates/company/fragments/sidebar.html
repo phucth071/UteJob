@@ -31,7 +31,18 @@
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
 			</div>
-
+			<li class="nav-item">
+				<a sec:authorize="isAuthenticated()" th:href="@{~/logout}" class="nav-item nav-link bg-secondary text-light" 
+				style="
+					text-align: center;
+					line-height: 76.8px;
+					position: fixed;
+					bottom: 0;
+					margin-bottom: 0;
+					padding: 0;
+				">
+				Đăng xuất</a>
+			</li>
 		</ul>
 	</div>
 </body>

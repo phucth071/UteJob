@@ -56,14 +56,14 @@
 							<th>Trạng thái</th>
 							<th>Tiêu đề</th>
 							<th>CompanyID</th>
-							<th>Action</th>
+							<th style="min-width: 86px;">Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="internship : ${intershipPage.content}">
 							<td th:text="${internship.internship_id}"></td>
 							<td th:text="${internship.full_description}"></td>
-							<td th:text="${internship.job_nature}"></td>
+							<td th:text="${internship.jobnature}"></td>
 							<td th:text="${internship.salary}"></td>
 							<td th:text="${internship.status}? 'Còn tuyển' : 'Hết tuyển'"></td>
 							<td th:text="${internship.title}"></td>

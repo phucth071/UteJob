@@ -68,13 +68,6 @@ public class CompanyController {
 //			return users;
 //		}).toList();
 //	}
-	@RequestMapping("")
-	public String list(ModelMap model) {
-		List<company> list = companyService.findAll();
-		model.addAttribute("company", list);
-		return "admin/company/list";
-	}
-
 	@GetMapping("add")
 	public String Add(ModelMap model) {
 		companyModel company = new companyModel();
