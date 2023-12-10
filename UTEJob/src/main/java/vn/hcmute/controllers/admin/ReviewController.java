@@ -96,7 +96,12 @@ public class ReviewController {
 			review enity = opt.get();
 			BeanUtils.copyProperties(enity, review);
 			review.setEdit(true);
+			
+			model.addAttribute("apps", appService.findAll());
+			
 			model.addAttribute("review", review);
+			int reviewAppId = review.getApplication_id();
+			model.addAttribute("selectedAppId", reviewAppId);
 			return new ModelAndView("admin/review/addOrEdit", model);
 		}
 		model.addAttribute("message", "Không tồn tại");

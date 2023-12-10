@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import vn.hcmute.entities.internship;
@@ -40,6 +42,27 @@ public class InternshipServiceImpl implements IInternshipService{
 	public List<internship> findByStatus(boolean status) {
 		// TODO Auto-generated method stub
 		return internshipRepo.findByStatus(status);
+	}
+
+	@Override
+	public Page<internship> findByStatus(boolean name, Pageable page) {
+		return internshipRepo.findByStatus(name, page);
+	}
+
+	@Override
+	public Page<internship> findAll(Pageable pageable) {
+		return internshipRepo.findAll(pageable);
+	}
+
+	@Override
+	public long count() {
+		return internshipRepo.count();
+	}
+
+	@Override
+	public String findInternshipByInternshipId(int internshipId) {
+		// TODO Auto-generated method stub
+		return internshipRepo.findInternshipByInternshipId(internshipId);
 	}
 
 

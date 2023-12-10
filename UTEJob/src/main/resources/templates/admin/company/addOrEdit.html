@@ -37,7 +37,8 @@
 
 			<div class="row">
 				<div class="col mt-4">
-					<form th:action="@{/admin/company/saveOrUpdate}" method="post" enctype="multipart/form-data" th:object="${company}">
+					<form th:action="@{/admin/company/saveOrUpdate}" method="post" enctype="multipart/form-data"
+						th:object="${company}">
 						<div class="col-12">
 							<h1 th:text="${company.isEdit ? 'Chỉnh sửa công ty' : 'Thêm công ty'}"></h1>
 							<input type="hidden" th:field="*{isEdit}">
@@ -50,14 +51,20 @@
 									id="company_name" name="company_name" th:field="*{company_name}" required>
 							</div>
 							<div class="form-group">
-								<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
-									name="industry"  th:field="*{industry}" required>
+								<label for="industry">Ngành:</label> <input type="text" class="form-control"
+									id="industry" name="industry" th:field="*{industry}" required>
 							</div>
+
 							<div class="form-group">
-								<label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
-									name="user_id"  th:field="*{user_id}" required>
+								<label for="user_id">Chọn username:</label>
+								<select class="form-control" id="user_id" name="user_id">
+									<option th:each="user : ${users}" th:value="${user.user_id}"
+										th:text="${user.username}"
+										th:selected="${user.user_id == selectedUserId}">
+									</option>
+								</select>
 							</div>
-			
+
 							<script type="text/javascript">
 								function chooseFile(fileInput) {
 									if (fileInput.files && fileInput.files[0]) {
@@ -69,18 +76,21 @@
 									}
 								}
 							</script>
-							
-							<img id="avatar" th:src="${company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}" width="50" class="img-fluid" alt="">
+
+							<img id="avatar"
+								th:src="${company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}"
+								width="50" class="img-fluid" alt="">
 							<div class="mb-3">
 								<label for="imageFile" class="form-label">Avatar:</label>
 								<input type="file" class="form-control-file" id="imageFile" name="imageFile"
 									aria-describedby="imageFile" placeholder="Avatar" onchange="chooseFile(this)">
-								<div th:if="${#fields.hasErrors('avatar')}" id="imageFileid" class="form-text text-muted">
+								<div th:if="${#fields.hasErrors('avatar')}" id="imageFileid"
+									class="form-text text-muted">
 									<span>Field errors</span>
 								</div>
 							</div>
 						</div>
-						
+
 						<a th:href="${company.isEdit} ? @{/admin/company/add} : @{/admin/company/add}">
 							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
 								<span th:text="${company.isEdit} ? 'Thêm mới' : 'Reset'"></span>

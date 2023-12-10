@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import vn.hcmute.entities.application;
@@ -41,4 +43,21 @@ public class ApplicationServiceImpl implements IApplicationService{
 	}
 
 	
+
+	@Override
+	public Page<application> findAll(Pageable pageable) {
+		return applicationRepo.findAll(pageable);
+	}
+
+	@Override
+	public long count() {
+		return applicationRepo.count();
+	}
+
+	@Override
+	public Page<application> findByStatus(boolean status, Pageable page) {
+		// TODO Auto-generated method stub
+		return applicationRepo.findByStatus(status, page);
+	}
+
 }

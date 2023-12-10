@@ -4,9 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -33,22 +39,6 @@ public class InternshipController {
 	IInternshipService internService;
 	@Autowired
 	ICompanyService companyService;
-
-	@RequestMapping("")
-	public String list(ModelMap model) {
-
-		List<internship> list = internService.findAll();
-		Map<Integer, String> companyNames = new HashMap<>();
-
-		for (internship internship : list) {
-			int companyId = internship.getCompany_id();
-			String companyName = companyService.findCompanyNameByCompanyId(companyId);
-			companyNames.put(companyId, companyName);
-		}
-		model.addAttribute("companyNames", companyNames);
-		model.addAttribute("internship", list);
-		return "admin/internship/list";
-	}
 
 	@GetMapping("add")
 	public String Add(ModelMap model) {
@@ -90,7 +80,7 @@ public class InternshipController {
 			internship.setEdit(true);
 			model.addAttribute("companies", companyService.findAll());
 			model.addAttribute("internship", internship);
-			// Suppose you have fetched the internship and have its company_id
+			
 			int internshipCompanyId = internship.getCompany_id();
 			model.addAttribute("selectedCompanyId", internshipCompanyId);
 
@@ -107,30 +97,60 @@ public class InternshipController {
 		return new ModelAndView("forward:/admin/internship", model);
 	}
 
-	@GetMapping("search")
-	public String search(ModelMap model, @RequestParam(name="status",required = false) String status) {
-		List<internship> list=null;
-		if (StringUtils.hasText(status)) {
-			boolean isAvailable = Boolean.parseBoolean(status);	
-			if (isAvailable) {
-		        list = internService.findByStatus(true); // Nếu là true, tìm kiếm theo trạng thái "Còn tuyển"
-		    } else {
-		        list = internService.findByStatus(false); // Nếu là false, tìm kiếm theo trạng thái "Hết tuyển"
-		    }
+
+	@RequestMapping({ "searchpage", "" })
+	public String search(ModelMap model, @RequestParam(name = "status", required = false) String name,
+			@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+		int count = (int) internService.count();
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(3);
+
+		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("internship_id"));
+
+		Page<internship> resultPage = null;
+
+		if (StringUtils.hasText(name)) {
+			boolean isAvailable = Boolean.parseBoolean(name);
+			resultPage = internService.findByStatus(isAvailable, pageable);
+			model.addAttribute("status", name);
+		} else {
+			resultPage = internService.findAll(pageable);
 		}
-		else {
-			list= internService.findAll();
+		int totalPages = resultPage.getTotalPages();
+
+		if (totalPages > 0) {
+			int start = Math.max(1, currentPage - 2);
+			int end = Math.min(currentPage + 2, totalPages);
+			if (totalPages > count) {
+				if (end == totalPages)
+					start = end - count;
+				else if (start == 1)
+					end = start + count;
+			}
+			List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+			model.addAttribute("pageNumbers", pageNumbers);
 		}
-		
+		List<internship> list = null;
+		if (StringUtils.hasText(name)) {
+			boolean isAvailable = Boolean.parseBoolean(name);
+			if (isAvailable==true) {
+				list = internService.findByStatus(true); // Nếu là true, tìm kiếm theo trạng thái "Còn tuyển"
+			} else {
+				list = internService.findByStatus(false); // Nếu là false, tìm kiếm theo trạng thái "Hết tuyển"
+			}
+		} else {
+			list = internService.findAll();
+		}
+
 		Map<Integer, String> companyNames = new HashMap<>();
 
 		for (internship internship : list) {
-		    int companyId = internship.getCompany_id();
-		    String companyName = companyService.findCompanyNameByCompanyId(companyId); 
-			    companyNames.put(companyId, companyName); 
-			}
-		model.addAttribute("companyNames", companyNames); 
-		model.addAttribute("internship",list);
-		return "admin/internship/search";
+			int companyId = internship.getCompany_id();
+			String companyName = companyService.findCompanyNameByCompanyId(companyId);
+			companyNames.put(companyId, companyName);
+		}
+		model.addAttribute("companyNames", companyNames);
+		model.addAttribute("intershipPage", resultPage);
+		return "admin/internship/list";
 	}
 }

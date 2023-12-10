@@ -55,15 +55,26 @@
 							</select>
 						</div>
 
+						
 						<div class="form-group">
-							<label for="internship_id">Internship ID:</label> <input type="text" class="form-control"
-								id="internship_id" name="internship_id" th:value="${app.internship_id}" required>
-						</div>
-						<div class="form-group">
-							<label for="student_id">Student ID:</label> <input type="text" class="form-control"
-								id="student_id" name="student_id" th:value="${app.student_id}" required>
-						</div>
-
+								<label for="internship_id">Chọn internship_id:</label>
+								<select class="form-control" id="internship_id" name="internship_id">
+									<option th:each="internship : ${internships}" th:value="${internship.internship_id}"
+										th:text="${internship.job_nature}"
+										th:selected="${internship.internship_id == selectedInternshipId}">
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="student_id">Chọn student_id:</label>
+								<select class="form-control" id="student_id" name="student_id">
+									<option th:each="student : ${students}" th:value="${student.student_id}"
+										th:text="${student.first_name}"
+										th:selected="${student.student_id == selectedStudentId}">
+									</option>
+								</select>
+							</div>
+						
 						<a th:href="${app.isEdit} ? @{/admin/application/add} : @{/admin/application/add}">
 							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
 								<span th:text="${app.isEdit} ? 'Thêm mới' : 'Reset'"></span>

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -72,6 +75,22 @@ public class CompanyServiceImpl implements ICompanyService{
 	
 		return companyRepo.findByCompanyNameContaining(name);
 	}
+
+	@Override
+	public Page<company> findByCompanyName(@Param("name") String name, Pageable page) {
+		// TODO Auto-generated method stub
+		return companyRepo.findByCompanyName(name, page);
+	}
+
+	@Override
+	public Page<company> findAll(Pageable pageable) {
+		return companyRepo.findAll(pageable);
+	}
+
+	
+	
+
+
 	
 	
 	

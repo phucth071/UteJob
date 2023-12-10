@@ -107,5 +107,12 @@ public class UsersServiceImpl implements IUsersService{
 		return userRepo.existsByUsername(username);
 	}
 
+	@Override
+	public String findUserNameByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return userRepo.findUserNameByUserId(userId);
+	}
+	
+
 	
 }

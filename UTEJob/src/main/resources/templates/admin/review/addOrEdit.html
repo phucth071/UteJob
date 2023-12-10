@@ -53,9 +53,14 @@
 								name="rating" th:value="${review.rating}" required>
 						</div>
 						<div class="form-group">
-							<label for="application_id">Application ID:</label> <input type="text" class="form-control"
-								id="application_id" name="application_id" th:value="${review.application_id}" required>
-						</div>
+								<label for="application_id">Chọn username:</label>
+								<select class="form-control" id="application_id" name="application_id">
+									<option th:each="app : ${apps}" th:value="${app.application_id}"
+										th:text="${app.application_id}"
+										th:selected="${app.application_id == selectedAppId}">
+									</option>
+								</select>
+							</div>
 							<a th:href="${review.isEdit} ? @{/admin/review/add} : @{/admin/review/add}">
 							<button type="button" class="btn btn-primary" onclick="return showConfirm()">
 								<span th:text="${review.isEdit} ? 'Thêm mới' : 'Reset'"></span>
