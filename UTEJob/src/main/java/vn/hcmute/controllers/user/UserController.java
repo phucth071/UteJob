@@ -16,7 +16,7 @@ import vn.hcmute.services.IUsersService;
 import vn.hcmute.services.impl.UsersServiceImpl;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/testLayout")
 public class UserController {
 	@RequestMapping
 	public ModelAndView home() {

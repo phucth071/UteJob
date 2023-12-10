@@ -22,7 +22,7 @@ import vn.hcmute.models.internshipModel;
 import vn.hcmute.services.IInternshipService;
 
 @Controller
-@RequestMapping("/internship")
+@RequestMapping("")
 public class UserInternshipController {
 	@Autowired
 	IInternshipService internshipService;
@@ -32,10 +32,6 @@ public class UserInternshipController {
 	public String getListIntershipByJobNature(ModelMap model) {
 		// Tìm tất cả các internships với job_nature là "Full Time" trong service
 		List<internship> fullTimeInternships = internshipService.findByJobnature("Full time");
-		for (Iterator iterator = fullTimeInternships.iterator(); iterator.hasNext();) {
-			internship internship = (internship) iterator.next();
-			System.out.println(internship.getTitle());
-		}
 		// Chuyển dữ liệu từ Iterable sang List để sử dụng trong Thymeleaf
 		model.addAttribute("fullTimeInternships", fullTimeInternships);
 		List<internship> partTimeInternships = internshipService.findByJobnature("Part time");

@@ -17,5 +17,5 @@ public interface IInternshipRepository extends JpaRepository<internship, Integer
 	
     List<internship> findByStatus(boolean status);
     List<internship> findByJobnature(String jobnature);
-
+    
 }

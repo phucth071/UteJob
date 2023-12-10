@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{company/layout-company-manager.html}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<heah>
+	<script th:inline="javascript">
+		function showConfirm() {
+			var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
+			return confirmation;
+		}
+		function validateForm() {
+			var formInputs = document.querySelectorAll('input, select, textarea');
+			var isValid = true;
+
+			formInputs.forEach(function (input) {
+				if (input.required && !input.value.trim()) {
+					input.classList.add('is-invalid'); // Thêm class để hiển thị border đỏ hoặc thông báo lỗi
+					isValid = false;
+				} else {
+					input.classList.remove('is-invalid');
+				}
+			});
+
+			if (!isValid) {
+				alert('Vui lòng điền đầy đủ thông tin');
+			}
+
+			return isValid; // Ngăn form submit nếu có lỗi
+		}
+	</script>
+</heah>
+
+<body>
+	<section layout:fragment="content">
+		<th:block th:if="${session.msg}">
+			<div class="alert alert-primary" role="alert">[[${session.msg}]]</div>
+			<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+		</th:block>
+
+	</section>
+</body>
+<section layout:fragment="content">
+			<div class="col mt-4">
+				<div class="card-header" style="font-size: 25px; font-weight: bold;">Thông tin công ty
+				</div>
+				<form th:action="@{/company/update}" method="post" enctype="multipart/form-data" th:object="${company}">
+					<div class="col-12">
+						<div class="form-group d-none">
+							<label for="company_id"></label> <input readonly type="text" class="form-control"
+								id="company_id" name="company_id" th:field="*{company_id}" required>
+						</div>
+						<div class="form-group d-none">
+							<label for="company_id"></label> <input readonly type="text" class="form-control"
+								id="user_id" name="user_id" th:field="*{user_id}" required>
+						</div>
+						<div class="form-group">
+							<label for="company_name">Tên công ty :</label> <input type="text" class="form-control"
+								id="company_name" name="company_name" th:field="*{company_name}" required>
+						</div>
+						<div class="form-group">
+							<label for="industry">Ngành:</label> <input type="text" class="form-control" id="industry"
+								name="industry" th:field="*{industry}" required>
+						</div>
+
+						<div class="form-group">
+							<label for="imageFile" class="form-label">Avatar:</label>
+							<img style="margin: 8px; width: 100px;" id="avatar"
+								th:src="${company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}"
+								class="img-fluid rounded" alt="">
+							<div class="mb-3">
+								<input type="file" class="form-control-file" id="imageFile" name="imageFile"
+									aria-describedby="imageFile" placeholder="Avatar"
+									onchange="document.getElementById('avatar').src = window.URL.createObjectURL(this.files[0])">
+								<div th:if="${#fields.hasErrors('avatar')}" id="imageFileid"
+									class="form-text text-muted">
+									<span>Field errors</span>
+								</div>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary " onclick="return showConfirm()"
+							th:text="${'Chỉnh sửa'}"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+</html>

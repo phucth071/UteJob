@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import vn.hcmute.entities.company;
+import vn.hcmute.entities.internship;
 import vn.hcmute.repository.ICompanyRepository;
 import vn.hcmute.services.ICompanyService;
 @Service
@@ -72,7 +73,9 @@ public class CompanyServiceImpl implements ICompanyService{
 	
 		return companyRepo.findByCompanyNameContaining(name);
 	}
-	
-	
-	
+
+	public company findByUserid(int user_id) {
+		return companyRepo.findByUserid(user_id);
+	}
+
 }

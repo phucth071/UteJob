@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.repository.query.Param;
 
 import vn.hcmute.entities.company;
+import vn.hcmute.entities.internship;
 
 public interface ICompanyService {
 
@@ -23,4 +24,6 @@ public interface ICompanyService {
 
 	String findCompanyNameByCompanyId(@Param("companyId") int companyId);
 	List<company> findByCompanyNameContaining(@Param("name") String name);
+
+	company findByUserid(int user_id);
 }

@@ -11,5 +11,6 @@ public class signUpDto {
 	private String username;
 	private String email;
 	private String password;
+	private String role;
 	private boolean enabled;
 }

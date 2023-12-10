@@ -3,6 +3,7 @@ package vn.hcmute.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import vn.hcmute.services.userDetailsService.DefaultUserService;
 import vn.hcmute.services.userDetailsService.UserDetailsServiceImpl;
 
 import java.util.*;
@@ -27,7 +29,7 @@ import java.util.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private DefaultUserService userDetailsService;
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -42,7 +44,7 @@ public class WebSecurityConfig {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-		auth.setUserDetailsService(userDetailsService());
+		auth.setUserDetailsService(userDetailsService);
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
@@ -71,7 +73,11 @@ public class WebSecurityConfig {
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/signup/**")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/assets/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET ,"/api/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/assets-admin/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/company/images/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/internship/add")).hasAnyAuthority("ADMIN", "COMPANY")
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasAuthority("ADMIN")
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/company/signup-company")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/company/**")).hasAuthority("COMPANY")
