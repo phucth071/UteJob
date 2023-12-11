@@ -75,7 +75,7 @@ public class WebSecurityConfig {
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasAuthority("ADMIN")
 						.anyRequest().authenticated()
 				)
-				.formLogin().loginPage("/login").successForwardUrl("/").permitAll()
+				.formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()
 				.and()
 				.exceptionHandling().accessDeniedPage("/403")
 				.and()

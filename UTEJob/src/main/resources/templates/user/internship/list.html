@@ -4,9 +4,15 @@
 
 <body>
     <section layout:fragment="content">
-
+		
+	
         <div class="container-xxl py-5">
             <div class="container">
+				
+				<div class="carousel-container position-relative">
+					 <div class="overlay"></div>
+                    <img src="assets/img/carousel-1.jpg" alt="Carousel Image" class="img-fluid mb-4">
+                </div>
                 <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                     <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
@@ -29,68 +35,131 @@
 
                         <!-- Tab Full Time -->
                         <div id="tab-2" class="tab-pane fade show p-0 active">
-                            <div th:each="fullTimeJob : ${fullTimeInternships}" class="job-item p-4 mb-4">
+                            <div th:each="fullTimeJob : ${fullTimeInternships}" class="job-item p-4 mb-4" data-bs-toggle="tooltip">
                                 <div class="row g-4">
+									
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
 									    <!--<img class="flex-shrink-0 img-fluid border rounded" th:src="${fullTimeJob.company.avatar != null ? '/admin/company/images/' + fullTimeJob.company.avatar : '/assets-admin/img/undraw_profile.svg'}"
 									        alt="" style="width: 80px; height: 80px;">-->
-									      <img class="flex-shrink-0 img-fluid border rounded" th:src="${'/assets-admin/img/undraw_profile.svg'}"
-									        alt="" style="width: 80px; height: 80px;">
 									    <div class="text-start ps-4">
 									        <h5 class="mb-3" th:text="${fullTimeJob.title}"></h5>
+									        
 									        <span class="text-truncate me-3"><i
-									                class="far fa-clock text-primary me-2"
-									                th:text="${fullTimeJob.jobnature}"></i></span>
+									                class="far fa-clock text-primary me-2"></i>
+									                <span th:text="${fullTimeJob.jobnature}"></span>
+									        </span>		
 									        <span class="text-truncate me-0"><i
-									                class="far fa-money-bill-alt text-primary me-2"
-									                th:text="${fullTimeJob.salary}"></i></span>
+									                class="far fa-money-bill-alt text-primary me-2"></i>
+									                <span th:text="${fullTimeJob.salary}"></span>
+									        </span>
 									    </div>
 									</div>
-									<div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-									    <div class="d-flex mb-3">
-									        <a class="btn btn-light btn-square me-3" href=""><i
-									                class="far fa-heart text-primary"></i></a>
-									        <a class="btn btn-primary" href="">Ứng tuyển ngay</a>
-									    </div>
-									</div>
-
+									<div class="col-sm-12 col-md-4">
+						                <!-- Nút Ứng tuyển ngay -->
+						                <div class="d-flex mb-3 justify-content-end">
+						                    <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
+						                    <a class="btn btn-primary" href="">Ứng tuyển ngay</a>
+						                </div>
+						                <!-- Nút Chi tiết -->
+						                <div class="d-flex justify-content-end">
+						                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+						                        th:data-bs-target="'#detailModal' + ${fullTimeJob.internship_id}">
+						                        Chi tiết
+						                    </button>
+						                </div>
+						            </div>
+									
                                 </div>
                             </div>
                         </div>
-
+						
+						<div th:each="fullTimeJob : ${fullTimeInternships}" th:id="'detailModal' + ${fullTimeJob.internship_id}"
+						    class="modal fade" tabindex="-1">
+						    <div class="modal-dialog modal-dialog-centered">
+						        <div class="modal-content">
+						            <div class="modal-header">
+						                <h5 class="modal-title" th:text="${fullTimeJob.title}"></h5>
+						                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						            </div>
+						            <div class="modal-body">
+						                <p th:text="${fullTimeJob.full_description}"></p>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+						
                         <!-- Tab Part Time -->
                         <div id="tab-3" class="tab-pane fade show p-0">
-                            <div th:each="partTimeJob : ${partTimeInternships}" class="job-item p-4 mb-4">
+                           <div th:each="partTimeJob : ${partTimeInternships}" class="job-item p-4 mb-4"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="${partTimeJob.full_description}">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
 									    <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg"
 									        alt="" style="width: 80px; height: 80px;">
 									    <div class="text-start ps-4">
 									        <h5 class="mb-3" th:text="${partTimeJob.title}"></h5>
+									        
 									        <span class="text-truncate me-3"><i
-									                class="far fa-clock text-primary me-2"
-									                th:text="${partTimeJob.jobnature}"></i></span>
+									                class="far fa-clock text-primary me-2"></i>
+													<span th:text=" ${partTimeJob.jobnature}"></span>
+									        </span>
 									        <span class="text-truncate me-0"><i
-									                class="far fa-money-bill-alt text-primary me-2"
-									                th:text="${partTimeJob.salary}"></i></span>
+									                class="far fa-money-bill-alt text-primary me-2"></i>
+									        		<span th:text=" ${partTimeJob.salary}"></span>
+									        </span>
 									    </div>
 									</div>
-									<div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-									    <div class="d-flex mb-3">
-									        <a class="btn btn-light btn-square me-3" href=""><i
-									                class="far fa-heart text-primary"></i></a>
-									        <a class="btn btn-primary" href="">Ứng tuyển ngay</a>
-									    </div>
-									</div>
+									<div class="col-sm-12 col-md-4">
+						                <!-- Nút Ứng tuyển ngay -->
+						                <div class="d-flex mb-3 justify-content-end">
+						                    <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
+						                    <a class="btn btn-primary" href="">Ứng tuyển ngay</a>
+						                </div>
+						                <!-- Nút Chi tiết -->
+						                <div class="d-flex justify-content-end">
+						                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+						                        th:data-bs-target="'#detailModal' + ${partTimeJob.internship_id}">
+						                        Chi tiết
+						                    </button>
+						                </div>
+						            </div>
 
                                 </div>
                             </div>
                         </div>
+                        <div th:each="partTimeJob : ${partTimeInternships}" th:id="'detailModal' + ${partTimeJob.internship_id}"
+						    class="modal fade" tabindex="-1">
+						    <div class="modal-dialog modal-dialog-centered">
+						        <div class="modal-content">
+						            <div class="modal-header">
+						                <h5 class="modal-title" th:text="${partTimeJob.title}"></h5>
+						                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						            </div>
+						            <div class="modal-body">
+						                <p th:text="${partTimeJob.full_description}"></p>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+						            </div>
+						        </div>
+						    </div>
+						</div>
                     </div>
                 </div>
-            </div>
+            </div>			
         </div>
     </section>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            // Enable Bootstrap tooltips
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+        /*]]>*/
+    </script>
 </body>
 
 </html>
