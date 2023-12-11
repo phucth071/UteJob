@@ -70,19 +70,19 @@ public class WebSecurityConfig {
 		return httpSecurity
 				.csrf().disable()
 				.authorizeHttpRequests((auth) -> auth
-						.requestMatchers(
-								AntPathRequestMatcher.antMatcher("/"), 
-								AntPathRequestMatcher.antMatcher("/**"),
-								AntPathRequestMatcher.antMatcher("/signup/**"),
-								AntPathRequestMatcher.antMatcher("/assets/**"),
-								AntPathRequestMatcher.antMatcher("/assets-admin/**"),
-								AntPathRequestMatcher.antMatcher(HttpMethod.GET ,"/api/**"),
-								AntPathRequestMatcher.antMatcher("/api/**"),
-								AntPathRequestMatcher.antMatcher("/admin/company/images/**")
-						).permitAll()
-						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/internship/add")).hasAnyAuthority("ADMIN", "COMPANY")
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin")).hasAuthority("ADMIN")
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/")).permitAll() 
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/signup/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/assets/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/assets-admin/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET ,"/api/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).permitAll()
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/company/images/**")).permitAll()
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")).hasAuthority("ADMIN")
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/internship/add")).hasAnyAuthority("ADMIN", "COMPANY")
 						.requestMatchers(AntPathRequestMatcher.antMatcher("/company/**")).hasAuthority("COMPANY")
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/company")).hasAuthority("COMPANY")
+						.requestMatchers(AntPathRequestMatcher.antMatcher("/**")).permitAll()
 						.anyRequest().authenticated()
 				)
 				.formLogin().loginPage("/login").successHandler(loginSuccessHandler).permitAll()

@@ -45,6 +45,12 @@
 							<label for="internship_id">id :</label> <input readonly type="text" class="form-control"
 								id="internship_id" name="internship_id" th:value="${internship.internship_id}">
 						</div>
+						
+						<div class="form-group">
+							<label for="title">Tiêu đề :</label> <input type="text" class="form-control" id="title"
+								name="title" th:value="${internship.title}" required>
+						</div>
+
 						<div class="form-group">
 							<label for="full_description">Chi tiết công việc :</label> <input type="text"
 								class="form-control" id="full_description" name="full_description"
@@ -68,13 +74,6 @@
 								</option>
 							</select>
 						</div>
-
-
-						<div class="form-group">
-							<label for="title">Tiêu đề :</label> <input type="text" class="form-control" id="title"
-								name="title" th:value="${internship.title}" required>
-						</div>
-
 
 						<div class="form-group">
 							<label for="company_id">Chọn công ty:</label>

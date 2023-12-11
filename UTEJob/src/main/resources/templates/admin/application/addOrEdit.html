@@ -60,7 +60,7 @@
 								<label for="internship_id">Chọn internship_id:</label>
 								<select class="form-control" id="internship_id" name="internship_id">
 									<option th:each="internship : ${internships}" th:value="${internship.internship_id}"
-										th:text="${internship.job_nature}"
+										th:text="${internship.internship_id + ' ' + internship.title}"
 										th:selected="${internship.internship_id == selectedInternshipId}">
 									</option>
 								</select>
@@ -69,7 +69,7 @@
 								<label for="student_id">Chọn student_id:</label>
 								<select class="form-control" id="student_id" name="student_id">
 									<option th:each="student : ${students}" th:value="${student.student_id}"
-										th:text="${student.first_name}"
+										th:text="${student.student_id + ' ' + student.first_name + ' ' + student.last_name}"
 										th:selected="${student.student_id == selectedStudentId}">
 									</option>
 								</select>

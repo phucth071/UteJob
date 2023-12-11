@@ -67,7 +67,7 @@
 						<div class="form-group">
 							<label for="imageFile" class="form-label">Avatar:</label>
 							<img style="margin: 8px; width: 100px;" id="avatar"
-								th:src="${company.avatar != null ? '/admin/company/images/' + company.avatar : '/assets-admin/img/undraw_profile.svg'}"
+								th:src="*{avatar != null ? '/admin/company/images/' + avatar : '/assets-admin/img/undraw_profile.svg'}"
 								class="img-fluid rounded" alt="">
 							<div class="mb-3">
 								<input type="file" class="form-control-file" id="imageFile" name="imageFile"

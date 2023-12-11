@@ -60,13 +60,13 @@
 												placeholder="Password">
 										</div>
 										<div class="form-group">
-											<label class="control-label" for="role">
+											<label class="control-label" for="role" style="color: white; float: right;">
 												Bạn là? </label> 
 												<select id="role" th:field="*{role}"
 												class="form-control form-control-user">
 													<option value="COMPANY">Nhà tuyển dụng</option>
 													<option value="STUDENT">Sinh viên</option>
-											</select>
+												</select>
 										</div>
 										<button type="submit" class="btn btn-primary btn-user btn-block">
 											Đăng ký
@@ -79,11 +79,12 @@
 										</a>-->
 									</form>
 									<hr>
-									<div class="text-center">
-										<a class="small" th:href="@{~/login}">Đã có tài khoản?</a>
-									</div>
+									
 									<div class="text-center">
 										<a class="small" href="forgot-password.html">Quên mật khẩu?</a>
+									</div>
+									<div class="text-center">
+										<a class="small" th:href="@{~/login}">Đã có tài khoản?</a>
 									</div>
 								</div>
 							</div>

@@ -46,6 +46,10 @@
 								id="internship_id" name="internship_id" th:field="*{internship_id}">
 						</div>
 						<div class="form-group">
+							<label for="title">Tiêu đề :</label> <input type="text" class="form-control" id="title"
+								name="title" th:field="*{title}" required>
+						</div>
+						<div class="form-group">
 							<label for="full_description">Chi tiết công việc :</label> <input type="text"
 								class="form-control" id="full_description" name="full_description"
 								th:field="*{full_description}" required>
@@ -68,10 +72,6 @@
 							</select>
 						</div>
 
-						<div class="form-group">
-							<label for="title">Tiêu đề :</label> <input type="text" class="form-control" id="title"
-								name="title" th:field="*{title}" required>
-						</div>
 						<div class="form-group d-none">
 							<label for="title">company_id</label> <input type="text" class="form-control" id="company_id"
 								name="company_id" th:value="${company_id}" required>

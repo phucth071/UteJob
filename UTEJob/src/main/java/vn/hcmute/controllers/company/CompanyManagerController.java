@@ -1,5 +1,6 @@
 package vn.hcmute.controllers.company;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +61,11 @@ public class CompanyManagerController {
 	@GetMapping("/update")
 	public ModelAndView update(Model model, @AuthenticationPrincipal UserDetails curuser) {
 		users user = (users) userService.findByEmail(curuser.getUsername()).get();
-		company c = companyService.findByUserid(user.getUser_id());
+		company c = new company();
+		c.setUser_id(user.getUser_id());
+		if (companyService.findByUserid(user.getUser_id()) != null) {
+			c = companyService.findByUserid(user.getUser_id());			
+		}
 		model.addAttribute("company", c);
 		return new ModelAndView("company/information");
 	}
@@ -68,9 +73,11 @@ public class CompanyManagerController {
 	@PostMapping("/update")
 	public ModelAndView saveOrUpdate(ModelMap model,
 			@Valid @ModelAttribute("company") companyModel company, BindingResult result) {
-		if (result.hasErrors()) {
-			return new ModelAndView("/company/update", model);
-		}
+		System.out.println("user id = " + company.getUser_id());
+		/*
+		 * if (result.hasErrors()) { return new ModelAndView("/company/information",
+		 * model); }
+		 */
 		//Random random = new Random();
 		//int randomNumber = random.nextInt(101);
 		company enity = new company();
@@ -96,7 +103,10 @@ public class CompanyManagerController {
 	public ModelAndView listJob(Model model, @AuthenticationPrincipal UserDetails curuser) {
 		users user = (users) userService.findByEmail(curuser.getUsername()).get();
 		company c = companyService.findByUserid(user.getUser_id());
-		List<internship> list = c.getInternships();
+		List<internship> list = new ArrayList<>();
+		if (c != null) {
+			list = c.getInternships();			
+		}
 		model.addAttribute("internships", list);
 		return new ModelAndView("company/listjob");
 	}
