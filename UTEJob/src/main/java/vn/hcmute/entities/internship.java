@@ -23,7 +23,6 @@ public class internship {
 	private String salary;
 	@Column(columnDefinition = "bit")
 	private boolean status;
-	
 	private int company_id;
 	
 	@ManyToOne(targetEntity = company.class)

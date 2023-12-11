@@ -27,7 +27,6 @@ public class company {
     @OneToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private users user;
-    
 	@OneToMany(targetEntity = internship.class, mappedBy = "company", fetch = FetchType.EAGER)
 	private List<internship> internships;
 
