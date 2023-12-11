@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -106,4 +107,21 @@ public class ApplicationController {
 		model.addAttribute("app",list);
 		return "admin/application/search";
 	}
+	
+	@Autowired
+    public ApplicationController(IApplicationService applicationService) {
+        this.applicationService = applicationService;
+    }
+
+    @PostMapping("/apply")
+    public ResponseEntity<application> applyForJob(@RequestParam Integer studentId, @RequestParam Integer intershipId) {
+        application application = applicationService.applyForJob(studentId, intershipId);
+        return ResponseEntity.ok(application);
+    }
+
+    @GetMapping("/getByStudent/{studentId}")
+    public ResponseEntity<List<application>> getApplicationsByStudent(@PathVariable Integer studentId) {
+        List<application> applications = applicationService.getApplicationsByStudent(studentId);
+        return ResponseEntity.ok(applications);
+    }
 }

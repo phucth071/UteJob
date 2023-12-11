@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import vn.hcmute.entities.company;
 import vn.hcmute.entities.student;
@@ -98,4 +100,27 @@ public class StudentController {
 		model.addAttribute("student",list);
 		return "admin/student/search";
 	}
+	
+	 @Autowired
+	    public StudentController(IStudentService studentService) {
+	        this.studentService = studentService;
+	    }
+	 @GetMapping("update/{student_id}")
+	    public ResponseEntity<student> updateStudent(@PathVariable Integer id, @RequestBody student updatedStudent) {
+	    	Optional<student> existingStudent = studentService.findById(id);
+
+	        if (existingStudent == null) {
+	            return ResponseEntity.notFound().build();
+	        }
+	        existingStudent.setFirst_name(updatedStudent.getFirst_name());
+	        existingStudent.setLast_name(updatedStudent.getLast_name());
+	        existingStudent.setMajor(updatedStudent.getMajor());
+	        existingStudent.setUser_id(updatedStudent.getUser_id());
+	        existingStudent.setAvatar(updatedStudent.getAvatar());
+	        existingStudent.setImageFile(updatedStudent.getImageFile());
+
+	        student updated = studentService.updateStudent(existingStudent);
+
+	        return ResponseEntity.ok(updated);
+	    }
 }

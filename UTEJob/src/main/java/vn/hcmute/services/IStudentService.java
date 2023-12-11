@@ -21,4 +21,11 @@ public interface IStudentService {
 
 	List<student> findByFirstnameContaining(@Param("name") String name);
 
+	student updateStudent(Integer studentId, student updatedStudent);
+
+	student updateStudent(Optional<student> existingStudent);
+
+
+
+
 }

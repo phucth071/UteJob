@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-admin.html}">
+
+<head>
+    <title>Application</title>
+    <script th:inline="javascript">
+        function showConfirm() {
+            var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
+            return confirmation;
+        }
+        function validateForm() {
+            var formInputs = document.querySelectorAll('input, select, textarea');
+            var isValid = true;
+
+            formInputs.forEach(function (input) {
+                if (input.required && !input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                alert('Vui lòng điền đầy đủ thông tin');
+            }
+
+            return isValid;
+        }
+    </script>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form th:action="@{/student/applications/apply}" method="post" onsubmit="return validateForm()">
+                    <!-- Assuming you have model attributes 'studentId' and 'jobId' to provide the current student and job IDs -->
+                    <input type="hidden" name="studentId" th:value="${studentId}" />
+                    <input type="hidden" name="internshipId" th:value="${internshipId}" />
+
+                    <div class="form-group">
+                        <label for="status">Trạng thái:</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="true">Đã duyệt</option>
+                            <option value="false">Chưa duyệt</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" onclick="return showConfirm()">
+                        Ứng Tuyển
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

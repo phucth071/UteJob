@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -122,4 +123,21 @@ public class ReviewController {
 		model.addAttribute("review",list);
 		return "admin/review/search";
 	}
+	
+	 @Autowired
+	    public ReviewController(IReviewService reviewService) {
+	        this.reviewService = reviewService;
+	    }
+
+	    @PostMapping("/createReviews")
+	    public ResponseEntity<review> createReview(@RequestParam Integer application_id, @RequestParam String comment, @RequestParam int rating) {
+	        review createdReview = reviewService.createReview(application_id, comment, rating);
+	        return ResponseEntity.ok(createdReview);
+	    }
+
+	    @GetMapping("/getByApplication/{applicationId}")
+	    public ResponseEntity<List<review>> getReviewsByApplication(@PathVariable Integer application_id) {
+	        List<review> reviews = reviewService.getReviewsByApplication(application_id);
+	        return ResponseEntity.ok(reviews);
+	    }
 }

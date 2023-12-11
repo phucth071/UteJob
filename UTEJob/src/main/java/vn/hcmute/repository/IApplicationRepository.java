@@ -10,4 +10,5 @@ import vn.hcmute.entities.application;
 @Repository
 public interface IApplicationRepository extends JpaRepository<application, Integer>{
 	List<application> findByStatus(boolean status);
+	List<application> findByStudent_UserId(Integer studentId);
 }

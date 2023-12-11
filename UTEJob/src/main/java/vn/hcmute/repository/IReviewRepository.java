@@ -13,5 +13,6 @@ import vn.hcmute.entities.review;
 public interface IReviewRepository extends JpaRepository<review, Integer>{
 	@Query("SELECT c FROM review c WHERE c.comment LIKE %:name%")
 	List<review> findByStatusContaining(@Param("name") String name);
+	List<review> findByApplication_ApplicationId(Integer application_id);
 
 }

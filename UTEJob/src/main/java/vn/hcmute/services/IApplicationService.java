@@ -16,5 +16,8 @@ public interface IApplicationService {
 	<S extends application> S save(S entity);
 
 	List<application> findByStatus(boolean status);
+	
+	application applyForJob(Integer studentId, Integer jobId);
+    List<application> getApplicationsByStudent(Integer studentId);
 
 }

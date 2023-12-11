@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout-admin.html}">
+
+<head>
+    <title>Student</title>
+    <script th:inline="javascript">
+        function showConfirm() {
+            var confirmation = confirm("Bạn có muốn thực hiện hành động này không?");
+            return confirmation;
+        }
+    </script>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <form th:action="@{/admin/student/saveOrUpdate}" method="post" onsubmit="return validateForm()">
+                        <h1 th:text="${student.isEdit ? 'Chỉnh sửa thông tin' : 'Thêm mới thông tin'}"></h1>
+                        <div class="form-group d-none">
+                            <label for="student_id">id :</label> <input readonly type="text" class="form-control"
+                                id="student_id" name="student_id" th:value="${student.student_id}">
+                        </div>
+                        <div class="form-group">
+                            <label for="first_name">Tên :</label> <input type="text" class="form-control"
+                                id="first_name" name="first_name" th:value="${student.first_name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Họ :</label> <input type="text" class="form-control" id="last_name"
+                                name="last_name" th:value="${student.last_name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="major">Chuyên môn :</label> <input type="text" class="form-control" id="major"
+                                name="major" th:value="${student.major}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_id">User ID:</label> <input type="text" class="form-control" id="user_id"
+                                name="user_id" th:value="${student.user_id}" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="return showConfirm()">
+                            <span th:text="${student.isEdit ? 'Chỉnh sửa' : 'Thêm'}"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

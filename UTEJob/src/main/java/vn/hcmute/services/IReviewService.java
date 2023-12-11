@@ -19,4 +19,8 @@ public interface IReviewService {
 
 	List<review> findByStatusContaining(@Param("name") String name);
 
+	review createReview(Integer application_id, String comment, int rating);
+	
+    List<review> getReviewsByApplication(Integer application_id);
+
 }
